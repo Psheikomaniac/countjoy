@@ -229,10 +229,349 @@ Implement mappers between entity and domain models
 "feature,P1,data" \
 "Phase 2: Core Implementation"
 
-# Continue for more issues...
+# Phase 3 Issues - UI Development
+echo "Creating Phase 3 issues..."
+
+create_issue "Setup SharedPreferences Manager" \
+"## Description
+Create SharedPreferences wrapper for simple storage
+
+## Acceptance Criteria
+- [ ] SharedPreferencesManager class created
+- [ ] Type-safe methods implemented  
+- [ ] Default values handled
+- [ ] Migration path considered
+
+## Branch
+\`feature/ISSUE-011-shared-preferences\`" \
+"feature,P2,data" \
+"Phase 2: Core Implementation"
+
+create_issue "Create Countdown ViewModel" \
+"## Description
+Implement ViewModel for countdown screen
+
+## Acceptance Criteria
+- [ ] CountdownViewModel created
+- [ ] StateFlow for UI state
+- [ ] Countdown timer logic
+- [ ] Lifecycle awareness
+- [ ] Error handling
+
+## Branch
+\`feature/ISSUE-012-countdown-viewmodel\`" \
+"feature,P0,ui" \
+"Phase 3: UI Development"
+
+create_issue "Create Event Input ViewModel" \
+"## Description
+Implement ViewModel for event input screen
+
+## Acceptance Criteria
+- [ ] EventInputViewModel created
+- [ ] Form validation logic
+- [ ] Event creation handling
+- [ ] Navigation events
+- [ ] Error states
+
+## Branch
+\`feature/ISSUE-013-event-input-viewmodel\`" \
+"feature,P0,ui" \
+"Phase 3: UI Development"
+
+create_issue "Implement Countdown Screen" \
+"## Description
+Create main countdown display screen
+
+## Acceptance Criteria
+- [ ] Countdown display composable
+- [ ] Empty state handling
+- [ ] Expired state display
+- [ ] FAB for adding event
+- [ ] Responsive layout
+
+## Branch
+\`feature/ISSUE-014-countdown-screen\`" \
+"feature,P0,ui" \
+"Phase 3: UI Development"
+
+create_issue "Implement Event Input Screen" \
+"## Description
+Create event creation/editing screen
+
+## Acceptance Criteria
+- [ ] Event name input field
+- [ ] Date picker integration
+- [ ] Optional time picker
+- [ ] Form validation UI
+- [ ] Save/Cancel actions
+
+## Branch
+\`feature/ISSUE-015-event-input-screen\`" \
+"feature,P0,ui" \
+"Phase 3: UI Development"
+
+create_issue "Create Custom Components" \
+"## Description
+Build reusable UI components
+
+## Acceptance Criteria
+- [ ] CountdownDisplay component
+- [ ] DateTimePicker component
+- [ ] EventCard component
+- [ ] Loading indicators
+- [ ] Error displays
+
+## Branch
+\`feature/ISSUE-016-custom-components\`" \
+"feature,P1,ui" \
+"Phase 3: UI Development"
+
+create_issue "Implement Tablet Layout Optimization" \
+"## Description
+Optimize UI for tablet screens
+
+## Acceptance Criteria
+- [ ] Landscape layout support
+- [ ] Responsive text sizing
+- [ ] Adaptive layouts
+- [ ] Touch targets optimized
+- [ ] Multi-pane layouts considered
+
+## Branch
+\`feature/ISSUE-017-tablet-optimization\`" \
+"feature,P1,ui" \
+"Phase 3: UI Development"
+
+# Background Services
+echo "Creating background service issues..."
+
+create_issue "Create Countdown Service" \
+"## Description
+Implement background service for countdown updates
+
+## Acceptance Criteria
+- [ ] Service class created
+- [ ] Coroutine-based updates
+- [ ] Lifecycle management
+- [ ] Battery optimization
+- [ ] Foreground service consideration
+
+## Branch
+\`feature/ISSUE-018-countdown-service\`" \
+"feature,P2" \
+"Phase 3: UI Development"
+
+create_issue "Implement Boot Receiver" \
+"## Description
+Handle app restart after device reboot
+
+## Acceptance Criteria
+- [ ] BroadcastReceiver created
+- [ ] Boot permission added
+- [ ] Service restart logic
+- [ ] State restoration
+- [ ] Testing strategy
+
+## Branch
+\`feature/ISSUE-019-boot-receiver\`" \
+"feature,P2" \
+"Phase 3: UI Development"
+
+create_issue "Handle Timezone Changes" \
+"## Description
+Properly handle timezone changes
+
+## Acceptance Criteria
+- [ ] Timezone change detection
+- [ ] Countdown recalculation
+- [ ] UI updates triggered
+- [ ] Edge cases handled
+- [ ] Testing scenarios
+
+## Branch
+\`feature/ISSUE-020-timezone-handling\`" \
+"feature,P1" \
+"Phase 3: UI Development"
+
+# Phase 4 - Testing
+echo "Creating Phase 4 testing issues..."
+
+create_issue "Unit Tests for Domain Layer" \
+"## Description
+Write unit tests for domain layer
+
+## Acceptance Criteria
+- [ ] Use case tests
+- [ ] Model validation tests
+- [ ] Edge case coverage
+- [ ] 90% code coverage
+- [ ] Documentation
+
+## Branch
+\`feature/ISSUE-021-domain-tests\`" \
+"test,P0,testing" \
+"Phase 4: Testing & QA"
+
+create_issue "Unit Tests for ViewModels" \
+"## Description
+Write unit tests for ViewModels
+
+## Acceptance Criteria
+- [ ] State transformation tests
+- [ ] Coroutine testing
+- [ ] Error handling tests
+- [ ] 85% code coverage
+- [ ] Turbine for Flow testing
+
+## Branch
+\`feature/ISSUE-022-viewmodel-tests\`" \
+"test,P0,testing" \
+"Phase 4: Testing & QA"
+
+create_issue "Integration Tests for Repository" \
+"## Description
+Write integration tests for data layer
+
+## Acceptance Criteria
+- [ ] Database integration tests
+- [ ] Repository tests
+- [ ] Mapper tests
+- [ ] Error scenarios
+- [ ] Performance tests
+
+## Branch
+\`feature/ISSUE-023-repository-tests\`" \
+"test,P1,testing" \
+"Phase 4: Testing & QA"
+
+create_issue "UI Tests for Compose Screens" \
+"## Description
+Write UI tests for Compose screens
+
+## Acceptance Criteria
+- [ ] Screen navigation tests
+- [ ] User interaction tests
+- [ ] State verification
+- [ ] Accessibility tests
+- [ ] Screenshot tests
+
+## Branch
+\`feature/ISSUE-024-ui-tests\`" \
+"test,P1,testing" \
+"Phase 4: Testing & QA"
+
+# Phase 5 - Polish & Optimization
+echo "Creating Phase 5 optimization issues..."
+
+create_issue "Performance Optimization" \
+"## Description
+Optimize app performance
+
+## Acceptance Criteria
+- [ ] Startup time < 2 seconds
+- [ ] Smooth animations (60 FPS)
+- [ ] Memory usage < 50MB
+- [ ] Battery optimization
+- [ ] Baseline profiles
+
+## Branch
+\`feature/ISSUE-025-performance-optimization\`" \
+"enhancement,P1" \
+"Phase 4: Testing & QA"
+
+create_issue "Accessibility Improvements" \
+"## Description
+Ensure app meets accessibility standards
+
+## Acceptance Criteria
+- [ ] Content descriptions added
+- [ ] Touch targets sized properly
+- [ ] Screen reader support
+- [ ] High contrast support
+- [ ] AA compliance verified
+
+## Branch
+\`feature/ISSUE-026-accessibility\`" \
+"enhancement,P1,ui" \
+"Phase 4: Testing & QA"
+
+create_issue "Error Handling & Recovery" \
+"## Description
+Implement comprehensive error handling
+
+## Acceptance Criteria
+- [ ] Graceful error recovery
+- [ ] User-friendly error messages
+- [ ] Retry mechanisms
+- [ ] Offline handling
+- [ ] Crash prevention
+
+## Branch
+\`feature/ISSUE-027-error-handling\`" \
+"enhancement,P1" \
+"Phase 4: Testing & QA"
+
+create_issue "ProGuard Configuration" \
+"## Description
+Configure ProGuard for release builds
+
+## Acceptance Criteria
+- [ ] ProGuard rules defined
+- [ ] Critical classes kept
+- [ ] Size optimization
+- [ ] Obfuscation enabled
+- [ ] Testing verified
+
+## Branch
+\`feature/ISSUE-028-proguard-setup\`" \
+"feature,P1" \
+"Phase 5: Release Preparation"
+
+# Final Release Preparation
+echo "Creating release preparation issues..."
+
+create_issue "Complete Documentation" \
+"## Description
+Finalize all documentation
+
+## Acceptance Criteria
+- [ ] Code documentation complete
+- [ ] README updated
+- [ ] API documentation
+- [ ] User guide created
+- [ ] Architecture documented
+
+## Branch
+\`feature/ISSUE-029-documentation\`" \
+"documentation,P1" \
+"Phase 5: Release Preparation"
+
+create_issue "Prepare Release Build" \
+"## Description
+Prepare app for release
+
+## Acceptance Criteria
+- [ ] Version number updated
+- [ ] Release notes written
+- [ ] APK signing configured
+- [ ] Play Store assets ready
+- [ ] Privacy policy updated
+
+## Branch
+\`feature/ISSUE-030-release-prep\`" \
+"feature,P0" \
+"Phase 5: Release Preparation"
+
 echo ""
-echo "Basic issues created! Continue this script for all 30 issues."
-echo "You can also create issues manually through the GitHub web interface."
+echo "✅ All 30 issues have been created successfully!"
 echo ""
-echo "To create branches for each issue, run:"
-echo "bash create-branches.sh"
+echo "View your issues at: https://github.com/Psheikomaniac/countjoy/issues"
+echo ""
+echo "Next steps:"
+echo "1. Review the created issues on GitHub"
+echo "2. Assign issues to team members"
+echo "3. Create feature branches: bash create-branches.sh"
+echo "4. Start development with the highest priority (P0) issues"
+echo ""
+echo "Happy coding! 🚀"
