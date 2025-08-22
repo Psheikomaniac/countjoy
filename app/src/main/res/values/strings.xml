@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">CountJoy</string>
+    <string name="add_event">Add Event</string>
+    <string name="no_events_yet">No events yet</string>
+    <string name="create_first_countdown">Create your first countdown event</string>
+    <string name="create_event">Create Event</string>
+    <string name="edit_event">Edit Event</string>
+    <string name="new_event">New Event</string>
+    <string name="event_name">Event Name</string>
+    <string name="description_optional">Description (Optional)</string>
+    <string name="select_date">Select date</string>
+    <string name="all_day">All day</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="back">Back</string>
+    <string name="date">Date</string>
+    <string name="time_optional">Time (Optional)</string>
+    <string name="clear">Clear</string>
+    <string name="ok">OK</string>
+    <string name="expired">Expired</string>
+    <string name="today">Today!</string>
+    <string name="day">day</string>
+    <string name="days">days</string>
+</resources>
