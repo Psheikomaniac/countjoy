@@ -16,6 +16,7 @@ import com.countjoy.domain.usecase.GetEventUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collectLatest
+import kotlin.coroutines.coroutineContext
 import javax.inject.Inject
 
 /**
@@ -87,7 +88,7 @@ class CountdownService : Service() {
     }
     
     private suspend fun updateCountdownLoop(events: List<CountdownEvent>) {
-        while (isActive) {
+        while (currentCoroutineContext().isActive) {
             val nextEvent = calculateCountdownUseCase.getNextUpcoming(events)
             if (nextEvent != null) {
                 val countdown = calculateCountdownUseCase(nextEvent)

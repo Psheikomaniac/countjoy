@@ -63,4 +63,68 @@ data class CountdownEvent(
             ChronoUnit.DAYS.between(now.toLocalDate(), targetDateTime.toLocalDate())
         }
     }
+    
+    /**
+     * Calculates detailed time units remaining until the target date
+     * @return Triple of (days, hours, minutes, seconds) remaining
+     */
+    fun getDetailedTimeRemaining(): DetailedTime {
+        val now = LocalDateTime.now()
+        return if (now.isAfter(targetDateTime) || now.isEqual(targetDateTime)) {
+            DetailedTime(0, 0, 0, 0, true)
+        } else {
+            val totalSeconds = ChronoUnit.SECONDS.between(now, targetDateTime)
+            val days = totalSeconds / 86400
+            val hours = ((totalSeconds % 86400) / 3600).toInt()
+            val minutes = ((totalSeconds % 3600) / 60).toInt()
+            val seconds = (totalSeconds % 60).toInt()
+            DetailedTime(days, hours, minutes, seconds, false)
+        }
+    }
+    
+    /**
+     * Gets a formatted countdown string with detailed time units
+     * @param includeSeconds Whether to include seconds in the format
+     * @return Formatted string like "5 days, 3 hours, 20 minutes, 15 seconds"
+     */
+    fun getFormattedCountdown(includeSeconds: Boolean = true): String {
+        val detailed = getDetailedTimeRemaining()
+        return if (detailed.isExpired) {
+            "Expired"
+        } else {
+            buildString {
+                val parts = mutableListOf<String>()
+                
+                if (detailed.days > 0) {
+                    parts.add("${detailed.days} ${if (detailed.days == 1L) "day" else "days"}")
+                }
+                if (detailed.hours > 0) {
+                    parts.add("${detailed.hours} ${if (detailed.hours == 1) "hour" else "hours"}")
+                }
+                if (detailed.minutes > 0) {
+                    parts.add("${detailed.minutes} ${if (detailed.minutes == 1) "minute" else "minutes"}")
+                }
+                if (includeSeconds && detailed.seconds > 0) {
+                    parts.add("${detailed.seconds} ${if (detailed.seconds == 1) "second" else "seconds"}")
+                }
+                
+                when {
+                    parts.isEmpty() && includeSeconds -> "${detailed.seconds} ${if (detailed.seconds == 1) "second" else "seconds"}"
+                    parts.isEmpty() -> "Less than a minute"
+                    else -> parts.joinToString(", ")
+                }
+            }
+        }
+    }
+
+/**
+ * Data class representing detailed time units
+ */
+data class DetailedTime(
+    val days: Long,
+    val hours: Int,
+    val minutes: Int,
+    val seconds: Int,
+    val isExpired: Boolean
+)
 }

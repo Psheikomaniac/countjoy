@@ -25,7 +25,7 @@ class EventRepositoryImpl @Inject constructor(
     }
     
     override fun getActiveEvents(): Flow<List<CountdownEvent>> {
-        return eventDao.getActiveEvents().map { entities ->
+        return eventDao.getAllActiveEvents().map { entities ->
             entities.map { it.toDomain() }
         }
     }
@@ -43,7 +43,7 @@ class EventRepositoryImpl @Inject constructor(
     }
     
     override suspend fun deleteEvent(id: Long) {
-        eventDao.deleteEvent(id)
+        eventDao.deleteEventById(id)
     }
     
     override suspend fun updateEventActiveStatus(id: Long, isActive: Boolean) {

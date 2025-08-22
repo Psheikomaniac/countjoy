@@ -27,12 +27,6 @@ fun EventInputScreen(
     var showDatePicker by remember { mutableStateOf(false) }
     var showTimePicker by remember { mutableStateOf(false) }
     
-    LaunchedEffect(eventId) {
-        eventId?.let {
-            viewModel.loadEvent(it)
-        }
-    }
-    
     LaunchedEffect(uiState.isSaved) {
         if (uiState.isSaved) {
             onNavigateBack()

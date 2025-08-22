@@ -64,7 +64,7 @@ fun CountdownScreen(
                 }
                 else -> {
                     EventList(
-                        events = uiState.events,
+                        events = uiState.events.map { it.event },
                         onEventClick = { event ->
                             onNavigateToEventInput(event.id)
                         }
@@ -130,7 +130,7 @@ fun EventCard(
     event: CountdownEvent,
     onClick: () -> Unit
 ) {
-    val daysRemaining = event.getDaysRemaining()
+    val detailedTime = event.getDetailedTimeRemaining()
     val isExpired = event.hasExpired()
     
     Card(
@@ -165,34 +165,89 @@ fun EventCard(
             
             Spacer(modifier = Modifier.height(8.dp))
             
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.Bottom
+            // Detailed countdown display
+            Column(
+                modifier = Modifier.fillMaxWidth()
             ) {
-                Text(
-                    text = event.targetDateTime.format(
-                        DateTimeFormatter.ofPattern("MMM dd, yyyy")
-                    ),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                
-                Text(
-                    text = when {
-                        isExpired -> "Expired"
-                        daysRemaining == 0L -> "Today!"
-                        daysRemaining == 1L -> "1 day"
-                        else -> "$daysRemaining days"
-                    },
-                    style = MaterialTheme.typography.titleLarge,
-                    color = if (isExpired) {
-                        MaterialTheme.colorScheme.error
+                // Main countdown display
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    if (isExpired) {
+                        Text(
+                            text = "Expired",
+                            style = MaterialTheme.typography.headlineMedium,
+                            color = MaterialTheme.colorScheme.error
+                        )
                     } else {
-                        MaterialTheme.colorScheme.primary
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            TimeUnit(value = detailedTime.days.toInt(), label = "Days")
+                            TimeUnit(value = detailedTime.hours, label = "Hours")
+                            TimeUnit(value = detailedTime.minutes, label = "Min")
+                            TimeUnit(value = detailedTime.seconds, label = "Sec")
+                        }
                     }
-                )
+                }
+                
+                Spacer(modifier = Modifier.height(12.dp))
+                
+                // Date and time info
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = event.targetDateTime.format(
+                            DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm")
+                        ),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    
+                    // Quick summary text
+                    Text(
+                        text = when {
+                            isExpired -> "Event passed"
+                            detailedTime.days == 0L && detailedTime.hours < 1 -> "Less than an hour!"
+                            detailedTime.days == 0L -> "Today!"
+                            detailedTime.days == 1L -> "Tomorrow"
+                            detailedTime.days <= 7 -> "This week"
+                            detailedTime.days <= 30 -> "This month"
+                            else -> "In ${detailedTime.days} days"
+                        },
+                        style = MaterialTheme.typography.labelMedium,
+                        color = when {
+                            isExpired -> MaterialTheme.colorScheme.error
+                            detailedTime.days <= 1 -> MaterialTheme.colorScheme.tertiary
+                            else -> MaterialTheme.colorScheme.primary
+                        }
+                    )
+                }
             }
         }
+    }
+}
+
+@Composable
+fun TimeUnit(
+    value: Int,
+    label: String
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = value.toString().padStart(2, '0'),
+            style = MaterialTheme.typography.headlineMedium,
+            color = MaterialTheme.colorScheme.primary
+        )
+        Text(
+            text = label,
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
     }
 }

@@ -2,6 +2,9 @@ package com.countjoy.data.mapper
 
 import com.countjoy.data.local.entity.CountdownEventEntity
 import com.countjoy.domain.model.CountdownEvent
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 /**
  * Maps between domain models and data entities
@@ -15,8 +18,14 @@ fun CountdownEventEntity.toDomain(): CountdownEvent {
         id = id,
         title = title,
         description = description,
-        targetDateTime = targetDateTime,
-        createdAt = createdAt,
+        targetDateTime = LocalDateTime.ofInstant(
+            Instant.ofEpochMilli(targetDateTime),
+            ZoneId.systemDefault()
+        ),
+        createdAt = LocalDateTime.ofInstant(
+            Instant.ofEpochMilli(createdAt),
+            ZoneId.systemDefault()
+        ),
         isActive = isActive
     )
 }
@@ -29,8 +38,8 @@ fun CountdownEvent.toEntity(): CountdownEventEntity {
         id = id,
         title = title,
         description = description,
-        targetDateTime = targetDateTime,
-        createdAt = createdAt,
+        targetDateTime = targetDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli(),
+        createdAt = createdAt.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli(),
         isActive = isActive
     )
 }

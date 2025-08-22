@@ -124,7 +124,7 @@ class EventInputViewModel @Inject constructor(
             val state = _uiState.value
             val dateTime = LocalDateTime.of(
                 state.selectedDate!!,
-                state.selectedTime ?: LocalTime.of(0, 0)
+                state.selectedTime ?: LocalTime.of(0, 1) // Default to 00:01 if no time specified
             )
             
             val event = CountdownEvent(
@@ -246,3 +246,4 @@ sealed class EventInputUiEvent {
     object NavigateBack : EventInputUiEvent()
     data class ShowError(val message: String) : EventInputUiEvent()
     data class ShowSnackbar(val message: String) : EventInputUiEvent()
+}
