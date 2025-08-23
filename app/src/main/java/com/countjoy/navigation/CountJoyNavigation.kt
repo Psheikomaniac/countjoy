@@ -12,6 +12,7 @@ import com.countjoy.presentation.countdown.CountdownScreen
 import com.countjoy.presentation.event.EventInputScreen
 import com.countjoy.presentation.settings.LanguagePickerScreen
 import com.countjoy.presentation.settings.SettingsScreen
+import com.countjoy.presentation.settings.AccessibilitySettingsScreen
 
 /**
  * Navigation destinations for the CountJoy app
@@ -29,6 +30,7 @@ sealed class Screen(val route: String) {
     }
     object Settings : Screen("settings")
     object LanguagePicker : Screen("language_picker")
+    object AccessibilitySettings : Screen("accessibility_settings")
 }
 
 /**
@@ -86,6 +88,9 @@ fun CountJoyNavHost(
                 },
                 onLanguageClick = {
                     navController.navigate(Screen.LanguagePicker.route)
+                },
+                onAccessibilityClick = {
+                    navController.navigate(Screen.AccessibilitySettings.route)
                 }
             )
         }
@@ -97,6 +102,16 @@ fun CountJoyNavHost(
                     navController.popBackStack()
                 },
                 onLanguageChanged = onLanguageChanged
+            )
+        }
+        
+        // Accessibility Settings Screen
+        composable(Screen.AccessibilitySettings.route) {
+            AccessibilitySettingsScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                },
+                onRestartRequired = onLanguageChanged // Reuse the same callback for restart
             )
         }
     }

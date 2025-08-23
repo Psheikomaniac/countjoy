@@ -10,6 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.countjoy.core.locale.LocaleManager
+import com.countjoy.core.accessibility.AccessibilityManager
 import com.countjoy.data.local.preferences.SharedPreferencesManager
 import com.countjoy.navigation.CountJoyNavHost
 import com.countjoy.ui.theme.CountJoyTheme
@@ -25,6 +26,9 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var localeManager: LocaleManager
     
+    @Inject
+    lateinit var accessibilityManager: AccessibilityManager
+    
     override fun attachBaseContext(newBase: Context) {
         // Apply the saved locale before the activity is created
         val localeManager = LocaleManager(newBase, SharedPreferencesManager(newBase))
@@ -35,7 +39,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             CountJoyTheme(
-                preferencesManager = preferencesManager
+                preferencesManager = preferencesManager,
+                accessibilityManager = accessibilityManager
             ) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),

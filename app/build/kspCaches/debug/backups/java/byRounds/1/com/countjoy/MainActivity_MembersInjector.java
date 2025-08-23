@@ -1,5 +1,6 @@
 package com.countjoy;
 
+import com.countjoy.core.accessibility.AccessibilityManager;
 import com.countjoy.core.locale.LocaleManager;
 import com.countjoy.data.local.preferences.SharedPreferencesManager;
 import dagger.MembersInjector;
@@ -26,22 +27,28 @@ public final class MainActivity_MembersInjector implements MembersInjector<MainA
 
   private final Provider<LocaleManager> localeManagerProvider;
 
+  private final Provider<AccessibilityManager> accessibilityManagerProvider;
+
   public MainActivity_MembersInjector(Provider<SharedPreferencesManager> preferencesManagerProvider,
-      Provider<LocaleManager> localeManagerProvider) {
+      Provider<LocaleManager> localeManagerProvider,
+      Provider<AccessibilityManager> accessibilityManagerProvider) {
     this.preferencesManagerProvider = preferencesManagerProvider;
     this.localeManagerProvider = localeManagerProvider;
+    this.accessibilityManagerProvider = accessibilityManagerProvider;
   }
 
   public static MembersInjector<MainActivity> create(
       Provider<SharedPreferencesManager> preferencesManagerProvider,
-      Provider<LocaleManager> localeManagerProvider) {
-    return new MainActivity_MembersInjector(preferencesManagerProvider, localeManagerProvider);
+      Provider<LocaleManager> localeManagerProvider,
+      Provider<AccessibilityManager> accessibilityManagerProvider) {
+    return new MainActivity_MembersInjector(preferencesManagerProvider, localeManagerProvider, accessibilityManagerProvider);
   }
 
   @Override
   public void injectMembers(MainActivity instance) {
     injectPreferencesManager(instance, preferencesManagerProvider.get());
     injectLocaleManager(instance, localeManagerProvider.get());
+    injectAccessibilityManager(instance, accessibilityManagerProvider.get());
   }
 
   @InjectedFieldSignature("com.countjoy.MainActivity.preferencesManager")
@@ -53,5 +60,11 @@ public final class MainActivity_MembersInjector implements MembersInjector<MainA
   @InjectedFieldSignature("com.countjoy.MainActivity.localeManager")
   public static void injectLocaleManager(MainActivity instance, LocaleManager localeManager) {
     instance.localeManager = localeManager;
+  }
+
+  @InjectedFieldSignature("com.countjoy.MainActivity.accessibilityManager")
+  public static void injectAccessibilityManager(MainActivity instance,
+      AccessibilityManager accessibilityManager) {
+    instance.accessibilityManager = accessibilityManager;
   }
 }

@@ -7,6 +7,7 @@ import com.countjoy.di.RepositoryModule;
 import com.countjoy.di.UseCaseModule;
 import com.countjoy.presentation.countdown.CountdownViewModel_HiltModules;
 import com.countjoy.presentation.event.EventInputViewModel_HiltModules;
+import com.countjoy.presentation.settings.AccessibilitySettingsViewModel_HiltModules;
 import com.countjoy.presentation.settings.LanguagePickerViewModel_HiltModules;
 import com.countjoy.presentation.settings.SettingsViewModel_HiltModules;
 import com.countjoy.service.CountdownService_GeneratedInjector;
@@ -164,6 +165,7 @@ public final class CountJoyApplication_HiltComponents {
 
   @Subcomponent(
       modules = {
+          AccessibilitySettingsViewModel_HiltModules.KeyModule.class,
           ActivityCBuilderModule.class,
           ViewModelCBuilderModule.class,
           CountdownViewModel_HiltModules.KeyModule.class,
@@ -206,6 +208,7 @@ public final class CountJoyApplication_HiltComponents {
 
   @Subcomponent(
       modules = {
+          AccessibilitySettingsViewModel_HiltModules.BindsModule.class,
           CountdownViewModel_HiltModules.BindsModule.class,
           EventInputViewModel_HiltModules.BindsModule.class,
           HiltWrapper_HiltViewModelFactory_ViewModelModule.class,

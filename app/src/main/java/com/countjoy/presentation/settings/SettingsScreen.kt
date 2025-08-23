@@ -33,6 +33,7 @@ import java.util.Locale
 fun SettingsScreen(
     onNavigateBack: () -> Unit,
     onLanguageClick: () -> Unit = {},
+    onAccessibilityClick: () -> Unit = {},
     viewModel: SettingsViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -134,12 +135,16 @@ fun SettingsScreen(
 
             Divider(modifier = Modifier.padding(vertical = 8.dp))
 
-            // Display Section
+            // Accessibility Section
             SettingsSection(
-                title = stringResource(id = R.string.display),
+                title = stringResource(id = R.string.accessibility),
                 icon = Icons.Default.Settings
             ) {
-                // Moved to Language & Region section
+                ClickableSettingItem(
+                    title = stringResource(id = R.string.accessibility),
+                    subtitle = "Manage font size, contrast, and visual settings",
+                    onClick = onAccessibilityClick
+                )
             }
 
             Divider(modifier = Modifier.padding(vertical = 8.dp))
