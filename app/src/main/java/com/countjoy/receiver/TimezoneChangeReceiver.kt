@@ -3,23 +3,16 @@ package com.countjoy.receiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.countjoy.domain.usecase.GetEventUseCase
 import com.countjoy.service.CountdownService
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * BroadcastReceiver to handle timezone changes and recalculate countdowns
  */
-@AndroidEntryPoint
 class TimezoneChangeReceiver : BroadcastReceiver() {
-    
-    @Inject
-    lateinit var getEventUseCase: GetEventUseCase
     
     private val receiverScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
     
@@ -65,7 +58,7 @@ class TimezoneChangeReceiver : BroadcastReceiver() {
 /**
  * Helper class to handle timezone-aware countdown calculations
  */
-class TimezoneManager @Inject constructor(
+class TimezoneManager constructor(
     private val context: Context
 ) {
     companion object {

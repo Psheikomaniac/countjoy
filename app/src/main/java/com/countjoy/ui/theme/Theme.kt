@@ -10,10 +10,15 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import com.countjoy.data.local.preferences.SharedPreferencesManager
+import kotlinx.coroutines.flow.Flow
 
 private val DarkColorScheme = darkColorScheme(
     primary = md_theme_dark_primary,
@@ -83,15 +88,30 @@ private val LightColorScheme = lightColorScheme(
 fun CountJoyTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     dynamicColor: Boolean = true,
+    preferencesManager: SharedPreferencesManager? = null,
     content: @Composable () -> Unit
 ) {
+    // Determine the actual theme based on preferences
+    val actualDarkTheme = if (preferencesManager != null) {
+        val themeMode = remember { preferencesManager.observeInt(SharedPreferencesManager.KEY_THEME_MODE, SharedPreferencesManager.THEME_MODE_SYSTEM) }
+            .collectAsState(initial = preferencesManager.getThemeMode())
+        
+        when (themeMode.value) {
+            SharedPreferencesManager.THEME_MODE_LIGHT -> false
+            SharedPreferencesManager.THEME_MODE_DARK -> true
+            else -> darkTheme // THEME_MODE_SYSTEM
+        }
+    } else {
+        darkTheme
+    }
+    
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+            if (actualDarkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
 
-        darkTheme -> DarkColorScheme
+        actualDarkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
     val view = LocalView.current
@@ -99,7 +119,7 @@ fun CountJoyTheme(
         SideEffect {
             val window = (view.context as Activity).window
             window.statusBarColor = colorScheme.primary.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !actualDarkTheme
         }
     }
 

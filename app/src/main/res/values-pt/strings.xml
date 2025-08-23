@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">CountJoy</string>
     
     <!-- Navigation -->
@@ -109,15 +109,15 @@
     <string name="screen_reader_optimized">Otimizado para Leitor de Ecrã</string>
     
     <!-- Plurals -->
-    <plurals name="days_count">
+    <plurals name="days_count" tools:ignore="MissingQuantity">
         <item quantity="one">%d dia</item>
         <item quantity="other">%d dias</item>
     </plurals>
-    <plurals name="hours_count">
+    <plurals name="hours_count" tools:ignore="MissingQuantity">
         <item quantity="one">%d hora</item>
         <item quantity="other">%d horas</item>
     </plurals>
-    <plurals name="minutes_count">
+    <plurals name="minutes_count" tools:ignore="MissingQuantity">
         <item quantity="one">%d minuto</item>
         <item quantity="other">%d minutos</item>
     </plurals>

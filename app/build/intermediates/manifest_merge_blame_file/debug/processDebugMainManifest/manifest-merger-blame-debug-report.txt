@@ -1,0 +1,233 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.countjoy"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="34" />
+10
+11    <!-- Permissions -->
+12    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+12-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:6:5-81
+12-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:6:22-78
+13    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+13-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:7:5-77
+13-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:7:22-74
+14    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+14-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:8:5-87
+14-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:8:22-84
+15    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+15-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:9:5-77
+15-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:9:22-74
+16    <uses-permission android:name="android.permission.VIBRATE" />
+16-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:10:5-66
+16-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:10:22-63
+17    <uses-permission android:name="android.permission.WAKE_LOCK" />
+17-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:11:5-68
+17-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:11:22-65
+18
+19    <permission
+19-->[androidx.core:core:1.12.0] /Users/private/.gradle/caches/8.13/transforms/b0403cc12f832c5900662973b0842019/transformed/core-1.12.0/AndroidManifest.xml:22:5-24:47
+20        android:name="com.countjoy.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+20-->[androidx.core:core:1.12.0] /Users/private/.gradle/caches/8.13/transforms/b0403cc12f832c5900662973b0842019/transformed/core-1.12.0/AndroidManifest.xml:23:9-81
+21        android:protectionLevel="signature" />
+21-->[androidx.core:core:1.12.0] /Users/private/.gradle/caches/8.13/transforms/b0403cc12f832c5900662973b0842019/transformed/core-1.12.0/AndroidManifest.xml:24:9-44
+22
+23    <uses-permission android:name="com.countjoy.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+23-->[androidx.core:core:1.12.0] /Users/private/.gradle/caches/8.13/transforms/b0403cc12f832c5900662973b0842019/transformed/core-1.12.0/AndroidManifest.xml:26:5-97
+23-->[androidx.core:core:1.12.0] /Users/private/.gradle/caches/8.13/transforms/b0403cc12f832c5900662973b0842019/transformed/core-1.12.0/AndroidManifest.xml:26:22-94
+24
+25    <application
+25-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:13:5-64:19
+26        android:name="com.countjoy.CountJoyApplication"
+26-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:14:9-44
+27        android:allowBackup="true"
+27-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:15:9-35
+28        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+28-->[androidx.core:core:1.12.0] /Users/private/.gradle/caches/8.13/transforms/b0403cc12f832c5900662973b0842019/transformed/core-1.12.0/AndroidManifest.xml:28:18-86
+29        android:dataExtractionRules="@xml/data_extraction_rules"
+29-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:16:9-65
+30        android:debuggable="true"
+31        android:extractNativeLibs="false"
+32        android:fullBackupContent="@xml/backup_rules"
+32-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:17:9-54
+33        android:icon="@mipmap/ic_launcher"
+33-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:18:9-43
+34        android:label="@string/app_name"
+34-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:19:9-41
+35        android:roundIcon="@mipmap/ic_launcher_round"
+35-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:20:9-54
+36        android:supportsRtl="true"
+36-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:21:9-35
+37        android:theme="@style/Theme.CountJoy" >
+37-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:22:9-46
+38        <activity
+38-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:24:9-32:20
+39            android:name="com.countjoy.MainActivity"
+39-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:25:13-41
+40            android:exported="true"
+40-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:26:13-36
+41            android:theme="@style/Theme.CountJoy" >
+41-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:27:13-50
+42            <intent-filter>
+42-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:28:13-31:29
+43                <action android:name="android.intent.action.MAIN" />
+43-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:29:17-69
+43-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:29:25-66
+44
+45                <category android:name="android.intent.category.LAUNCHER" />
+45-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:30:17-77
+45-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:30:27-74
+46            </intent-filter>
+47        </activity>
+48
+49        <!-- Countdown Service -->
+50        <service
+50-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:35:9-39:56
+51            android:name="com.countjoy.service.CountdownService"
+51-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:36:13-53
+52            android:enabled="true"
+52-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:37:13-35
+53            android:exported="false"
+53-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:38:13-37
+54            android:foregroundServiceType="dataSync" />
+54-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:39:13-53
+55
+56        <!-- Boot Receiver -->
+57        <receiver
+57-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:42:9-52:20
+58            android:name="com.countjoy.receiver.BootReceiver"
+58-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:43:13-50
+59            android:enabled="true"
+59-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:44:13-35
+60            android:exported="true"
+60-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:45:13-36
+61            android:permission="android.permission.RECEIVE_BOOT_COMPLETED" >
+61-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:46:13-75
+62            <intent-filter>
+62-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:47:13-51:29
+63                <action android:name="android.intent.action.BOOT_COMPLETED" />
+63-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:48:17-79
+63-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:48:25-76
+64                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+64-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:49:17-86
+64-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:49:25-83
+65
+66                <category android:name="android.intent.category.DEFAULT" />
+66-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:50:17-76
+66-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:50:27-73
+67            </intent-filter>
+68        </receiver>
+69
+70        <!-- Timezone Change Receiver -->
+71        <receiver
+71-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:55:9-63:20
+72            android:name="com.countjoy.receiver.TimezoneChangeReceiver"
+72-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:56:13-60
+73            android:enabled="true"
+73-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:57:13-35
+74            android:exported="true" >
+74-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:58:13-36
+75            <intent-filter>
+75-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:59:13-62:29
+76                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+76-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:60:17-81
+76-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:60:25-78
+77                <action android:name="android.intent.action.TIME_SET" />
+77-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:61:17-73
+77-->/Users/private/projects/countjoy/app/src/main/AndroidManifest.xml:61:25-70
+78            </intent-filter>
+79        </receiver>
+80
+81        <activity
+81-->[androidx.compose.ui:ui-tooling-android:1.5.4] /Users/private/.gradle/caches/8.13/transforms/27f27483d561df564c4e9ad3ed8b6f22/transformed/ui-tooling-release/AndroidManifest.xml:23:9-25:39
+82            android:name="androidx.compose.ui.tooling.PreviewActivity"
+82-->[androidx.compose.ui:ui-tooling-android:1.5.4] /Users/private/.gradle/caches/8.13/transforms/27f27483d561df564c4e9ad3ed8b6f22/transformed/ui-tooling-release/AndroidManifest.xml:24:13-71
+83            android:exported="true" />
+83-->[androidx.compose.ui:ui-tooling-android:1.5.4] /Users/private/.gradle/caches/8.13/transforms/27f27483d561df564c4e9ad3ed8b6f22/transformed/ui-tooling-release/AndroidManifest.xml:25:13-36
+84        <activity
+84-->[androidx.compose.ui:ui-test-manifest:1.5.4] /Users/private/.gradle/caches/8.13/transforms/2e48ac8ed1b01e18fa7d7c6ab4d3bd95/transformed/ui-test-manifest-1.5.4/AndroidManifest.xml:23:9-25:39
+85            android:name="androidx.activity.ComponentActivity"
+85-->[androidx.compose.ui:ui-test-manifest:1.5.4] /Users/private/.gradle/caches/8.13/transforms/2e48ac8ed1b01e18fa7d7c6ab4d3bd95/transformed/ui-test-manifest-1.5.4/AndroidManifest.xml:24:13-63
+86            android:exported="true" />
+86-->[androidx.compose.ui:ui-test-manifest:1.5.4] /Users/private/.gradle/caches/8.13/transforms/2e48ac8ed1b01e18fa7d7c6ab4d3bd95/transformed/ui-test-manifest-1.5.4/AndroidManifest.xml:25:13-36
+87
+88        <provider
+88-->[androidx.emoji2:emoji2:1.4.0] /Users/private/.gradle/caches/8.13/transforms/dbfb65c9dbfd2fc5a252c6c998313f21/transformed/emoji2-1.4.0/AndroidManifest.xml:24:9-32:20
+89            android:name="androidx.startup.InitializationProvider"
+89-->[androidx.emoji2:emoji2:1.4.0] /Users/private/.gradle/caches/8.13/transforms/dbfb65c9dbfd2fc5a252c6c998313f21/transformed/emoji2-1.4.0/AndroidManifest.xml:25:13-67
+90            android:authorities="com.countjoy.androidx-startup"
+90-->[androidx.emoji2:emoji2:1.4.0] /Users/private/.gradle/caches/8.13/transforms/dbfb65c9dbfd2fc5a252c6c998313f21/transformed/emoji2-1.4.0/AndroidManifest.xml:26:13-68
+91            android:exported="false" >
+91-->[androidx.emoji2:emoji2:1.4.0] /Users/private/.gradle/caches/8.13/transforms/dbfb65c9dbfd2fc5a252c6c998313f21/transformed/emoji2-1.4.0/AndroidManifest.xml:27:13-37
+92            <meta-data
+92-->[androidx.emoji2:emoji2:1.4.0] /Users/private/.gradle/caches/8.13/transforms/dbfb65c9dbfd2fc5a252c6c998313f21/transformed/emoji2-1.4.0/AndroidManifest.xml:29:13-31:52
+93                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+93-->[androidx.emoji2:emoji2:1.4.0] /Users/private/.gradle/caches/8.13/transforms/dbfb65c9dbfd2fc5a252c6c998313f21/transformed/emoji2-1.4.0/AndroidManifest.xml:30:17-75
+94                android:value="androidx.startup" />
+94-->[androidx.emoji2:emoji2:1.4.0] /Users/private/.gradle/caches/8.13/transforms/dbfb65c9dbfd2fc5a252c6c998313f21/transformed/emoji2-1.4.0/AndroidManifest.xml:31:17-49
+95            <meta-data
+95-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/private/.gradle/caches/8.13/transforms/07552c7b7f46169b483a27a71f6b45e3/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:29:13-31:52
+96                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+96-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/private/.gradle/caches/8.13/transforms/07552c7b7f46169b483a27a71f6b45e3/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:30:17-78
+97                android:value="androidx.startup" />
+97-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/private/.gradle/caches/8.13/transforms/07552c7b7f46169b483a27a71f6b45e3/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:31:17-49
+98            <meta-data
+98-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/private/.gradle/caches/8.13/transforms/e234e6bd0ba24d0787bdaaa2a3556ff1/transformed/profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
+99                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+99-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/private/.gradle/caches/8.13/transforms/e234e6bd0ba24d0787bdaaa2a3556ff1/transformed/profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
+100                android:value="androidx.startup" />
+100-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/private/.gradle/caches/8.13/transforms/e234e6bd0ba24d0787bdaaa2a3556ff1/transformed/profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
+101        </provider>
+102
+103        <service
+103-->[androidx.room:room-runtime:2.6.1] /Users/private/.gradle/caches/8.13/transforms/5cc45f1270393e155b9414d465f53a44/transformed/room-runtime-2.6.1/AndroidManifest.xml:24:9-28:63
+104            android:name="androidx.room.MultiInstanceInvalidationService"
+104-->[androidx.room:room-runtime:2.6.1] /Users/private/.gradle/caches/8.13/transforms/5cc45f1270393e155b9414d465f53a44/transformed/room-runtime-2.6.1/AndroidManifest.xml:25:13-74
+105            android:directBootAware="true"
+105-->[androidx.room:room-runtime:2.6.1] /Users/private/.gradle/caches/8.13/transforms/5cc45f1270393e155b9414d465f53a44/transformed/room-runtime-2.6.1/AndroidManifest.xml:26:13-43
+106            android:exported="false" />
+106-->[androidx.room:room-runtime:2.6.1] /Users/private/.gradle/caches/8.13/transforms/5cc45f1270393e155b9414d465f53a44/transformed/room-runtime-2.6.1/AndroidManifest.xml:27:13-37
+107
+108        <receiver
+108-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/private/.gradle/caches/8.13/transforms/e234e6bd0ba24d0787bdaaa2a3556ff1/transformed/profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
+109            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+109-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/private/.gradle/caches/8.13/transforms/e234e6bd0ba24d0787bdaaa2a3556ff1/transformed/profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
+110            android:directBootAware="false"
+110-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/private/.gradle/caches/8.13/transforms/e234e6bd0ba24d0787bdaaa2a3556ff1/transformed/profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
+111            android:enabled="true"
+111-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/private/.gradle/caches/8.13/transforms/e234e6bd0ba24d0787bdaaa2a3556ff1/transformed/profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
+112            android:exported="true"
+112-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/private/.gradle/caches/8.13/transforms/e234e6bd0ba24d0787bdaaa2a3556ff1/transformed/profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
+113            android:permission="android.permission.DUMP" >
+113-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/private/.gradle/caches/8.13/transforms/e234e6bd0ba24d0787bdaaa2a3556ff1/transformed/profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
+114            <intent-filter>
+114-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/private/.gradle/caches/8.13/transforms/e234e6bd0ba24d0787bdaaa2a3556ff1/transformed/profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
+115                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+115-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/private/.gradle/caches/8.13/transforms/e234e6bd0ba24d0787bdaaa2a3556ff1/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
+115-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/private/.gradle/caches/8.13/transforms/e234e6bd0ba24d0787bdaaa2a3556ff1/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
+116            </intent-filter>
+117            <intent-filter>
+117-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/private/.gradle/caches/8.13/transforms/e234e6bd0ba24d0787bdaaa2a3556ff1/transformed/profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
+118                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+118-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/private/.gradle/caches/8.13/transforms/e234e6bd0ba24d0787bdaaa2a3556ff1/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
+118-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/private/.gradle/caches/8.13/transforms/e234e6bd0ba24d0787bdaaa2a3556ff1/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
+119            </intent-filter>
+120            <intent-filter>
+120-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/private/.gradle/caches/8.13/transforms/e234e6bd0ba24d0787bdaaa2a3556ff1/transformed/profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
+121                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+121-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/private/.gradle/caches/8.13/transforms/e234e6bd0ba24d0787bdaaa2a3556ff1/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
+121-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/private/.gradle/caches/8.13/transforms/e234e6bd0ba24d0787bdaaa2a3556ff1/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
+122            </intent-filter>
+123            <intent-filter>
+123-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/private/.gradle/caches/8.13/transforms/e234e6bd0ba24d0787bdaaa2a3556ff1/transformed/profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
+124                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+124-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/private/.gradle/caches/8.13/transforms/e234e6bd0ba24d0787bdaaa2a3556ff1/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
+124-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/private/.gradle/caches/8.13/transforms/e234e6bd0ba24d0787bdaaa2a3556ff1/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:25-92
+125            </intent-filter>
+126        </receiver>
+127    </application>
+128
+129</manifest>
