@@ -9,7 +9,7 @@ import com.countjoy.data.local.entity.CountdownEventEntity
 
 @Database(
     entities = [CountdownEventEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(DateTimeConverter::class)

@@ -9,17 +9,31 @@ import java.time.temporal.ChronoUnit
  * @property id Unique identifier for the event
  * @property title The title/name of the event
  * @property description Optional description of the event
+ * @property category Event category for organization
  * @property targetDateTime The target date and time for the countdown
+ * @property reminderEnabled Whether reminders are enabled for this event
+ * @property reminderTime When to show reminder (milliseconds before target)
+ * @property color Optional custom color for the event
+ * @property icon Optional icon identifier for the event
  * @property createdAt When the event was created
+ * @property updatedAt When the event was last updated
  * @property isActive Whether this event is currently active
+ * @property priority Priority level (0 = normal, higher = more important)
  */
 data class CountdownEvent(
     val id: Long = 0,
     val title: String,
     val description: String? = null,
+    val category: String = "General",
     val targetDateTime: LocalDateTime,
+    val reminderEnabled: Boolean = false,
+    val reminderTime: Long? = null,
+    val color: Int? = null,
+    val icon: String? = null,
     val createdAt: LocalDateTime = LocalDateTime.now(),
-    val isActive: Boolean = true
+    val updatedAt: LocalDateTime = LocalDateTime.now(),
+    val isActive: Boolean = true,
+    val priority: Int = 0
 ) {
     /**
      * Validates the countdown event

@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.countjoy.data.local.CountJoyDatabase
 import com.countjoy.data.local.dao.CountdownEventDao
+import com.countjoy.data.local.migration.DatabaseMigrations
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,7 +26,7 @@ object DatabaseModule {
             CountJoyDatabase::class.java,
             "countjoy_database"
         )
-        .fallbackToDestructiveMigration()
+        .addMigrations(*DatabaseMigrations.getAllMigrations())
         .build()
     }
     

@@ -16,6 +16,7 @@ import androidx.sqlite.db.SupportSQLiteStatement;
 import com.countjoy.data.local.entity.CountdownEventEntity;
 import java.lang.Class;
 import java.lang.Exception;
+import java.lang.Integer;
 import java.lang.Long;
 import java.lang.Object;
 import java.lang.Override;
@@ -51,7 +52,7 @@ public final class CountdownEventDao_Impl implements CountdownEventDao {
       @Override
       @NonNull
       protected String createQuery() {
-        return "INSERT OR REPLACE INTO `countdown_events` (`id`,`title`,`description`,`targetDateTime`,`createdAt`,`isActive`) VALUES (nullif(?, 0),?,?,?,?,?)";
+        return "INSERT OR REPLACE INTO `countdown_events` (`id`,`title`,`description`,`category`,`target_date_time`,`reminder_enabled`,`reminder_time`,`color`,`icon`,`created_at`,`updated_at`,`is_active`,`priority`) VALUES (nullif(?, 0),?,?,?,?,?,?,?,?,?,?,?,?)";
       }
 
       @Override
@@ -64,10 +65,30 @@ public final class CountdownEventDao_Impl implements CountdownEventDao {
         } else {
           statement.bindString(3, entity.getDescription());
         }
-        statement.bindLong(4, entity.getTargetDateTime());
-        statement.bindLong(5, entity.getCreatedAt());
-        final int _tmp = entity.isActive() ? 1 : 0;
+        statement.bindString(4, entity.getCategory());
+        statement.bindLong(5, entity.getTargetDateTime());
+        final int _tmp = entity.getReminderEnabled() ? 1 : 0;
         statement.bindLong(6, _tmp);
+        if (entity.getReminderTime() == null) {
+          statement.bindNull(7);
+        } else {
+          statement.bindLong(7, entity.getReminderTime());
+        }
+        if (entity.getColor() == null) {
+          statement.bindNull(8);
+        } else {
+          statement.bindLong(8, entity.getColor());
+        }
+        if (entity.getIcon() == null) {
+          statement.bindNull(9);
+        } else {
+          statement.bindString(9, entity.getIcon());
+        }
+        statement.bindLong(10, entity.getCreatedAt());
+        statement.bindLong(11, entity.getUpdatedAt());
+        final int _tmp_1 = entity.isActive() ? 1 : 0;
+        statement.bindLong(12, _tmp_1);
+        statement.bindLong(13, entity.getPriority());
       }
     };
     this.__deletionAdapterOfCountdownEventEntity = new EntityDeletionOrUpdateAdapter<CountdownEventEntity>(__db) {
@@ -87,7 +108,7 @@ public final class CountdownEventDao_Impl implements CountdownEventDao {
       @Override
       @NonNull
       protected String createQuery() {
-        return "UPDATE OR ABORT `countdown_events` SET `id` = ?,`title` = ?,`description` = ?,`targetDateTime` = ?,`createdAt` = ?,`isActive` = ? WHERE `id` = ?";
+        return "UPDATE OR ABORT `countdown_events` SET `id` = ?,`title` = ?,`description` = ?,`category` = ?,`target_date_time` = ?,`reminder_enabled` = ?,`reminder_time` = ?,`color` = ?,`icon` = ?,`created_at` = ?,`updated_at` = ?,`is_active` = ?,`priority` = ? WHERE `id` = ?";
       }
 
       @Override
@@ -100,11 +121,31 @@ public final class CountdownEventDao_Impl implements CountdownEventDao {
         } else {
           statement.bindString(3, entity.getDescription());
         }
-        statement.bindLong(4, entity.getTargetDateTime());
-        statement.bindLong(5, entity.getCreatedAt());
-        final int _tmp = entity.isActive() ? 1 : 0;
+        statement.bindString(4, entity.getCategory());
+        statement.bindLong(5, entity.getTargetDateTime());
+        final int _tmp = entity.getReminderEnabled() ? 1 : 0;
         statement.bindLong(6, _tmp);
-        statement.bindLong(7, entity.getId());
+        if (entity.getReminderTime() == null) {
+          statement.bindNull(7);
+        } else {
+          statement.bindLong(7, entity.getReminderTime());
+        }
+        if (entity.getColor() == null) {
+          statement.bindNull(8);
+        } else {
+          statement.bindLong(8, entity.getColor());
+        }
+        if (entity.getIcon() == null) {
+          statement.bindNull(9);
+        } else {
+          statement.bindString(9, entity.getIcon());
+        }
+        statement.bindLong(10, entity.getCreatedAt());
+        statement.bindLong(11, entity.getUpdatedAt());
+        final int _tmp_1 = entity.isActive() ? 1 : 0;
+        statement.bindLong(12, _tmp_1);
+        statement.bindLong(13, entity.getPriority());
+        statement.bindLong(14, entity.getId());
       }
     };
     this.__preparedStmtOfDeleteEventById = new SharedSQLiteStatement(__db) {
@@ -119,7 +160,7 @@ public final class CountdownEventDao_Impl implements CountdownEventDao {
       @Override
       @NonNull
       public String createQuery() {
-        final String _query = "UPDATE countdown_events SET isActive = ? WHERE id = ?";
+        final String _query = "UPDATE countdown_events SET is_active = ? WHERE id = ?";
         return _query;
       }
     };
@@ -238,7 +279,7 @@ public final class CountdownEventDao_Impl implements CountdownEventDao {
 
   @Override
   public Flow<List<CountdownEventEntity>> getAllActiveEvents() {
-    final String _sql = "SELECT * FROM countdown_events WHERE isActive = 1 ORDER BY targetDateTime ASC";
+    final String _sql = "SELECT * FROM countdown_events WHERE is_active = 1 ORDER BY target_date_time ASC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     return CoroutinesRoom.createFlow(__db, false, new String[] {"countdown_events"}, new Callable<List<CountdownEventEntity>>() {
       @Override
@@ -249,9 +290,16 @@ public final class CountdownEventDao_Impl implements CountdownEventDao {
           final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
           final int _cursorIndexOfTitle = CursorUtil.getColumnIndexOrThrow(_cursor, "title");
           final int _cursorIndexOfDescription = CursorUtil.getColumnIndexOrThrow(_cursor, "description");
-          final int _cursorIndexOfTargetDateTime = CursorUtil.getColumnIndexOrThrow(_cursor, "targetDateTime");
-          final int _cursorIndexOfCreatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "createdAt");
-          final int _cursorIndexOfIsActive = CursorUtil.getColumnIndexOrThrow(_cursor, "isActive");
+          final int _cursorIndexOfCategory = CursorUtil.getColumnIndexOrThrow(_cursor, "category");
+          final int _cursorIndexOfTargetDateTime = CursorUtil.getColumnIndexOrThrow(_cursor, "target_date_time");
+          final int _cursorIndexOfReminderEnabled = CursorUtil.getColumnIndexOrThrow(_cursor, "reminder_enabled");
+          final int _cursorIndexOfReminderTime = CursorUtil.getColumnIndexOrThrow(_cursor, "reminder_time");
+          final int _cursorIndexOfColor = CursorUtil.getColumnIndexOrThrow(_cursor, "color");
+          final int _cursorIndexOfIcon = CursorUtil.getColumnIndexOrThrow(_cursor, "icon");
+          final int _cursorIndexOfCreatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "created_at");
+          final int _cursorIndexOfUpdatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "updated_at");
+          final int _cursorIndexOfIsActive = CursorUtil.getColumnIndexOrThrow(_cursor, "is_active");
+          final int _cursorIndexOfPriority = CursorUtil.getColumnIndexOrThrow(_cursor, "priority");
           final List<CountdownEventEntity> _result = new ArrayList<CountdownEventEntity>(_cursor.getCount());
           while (_cursor.moveToNext()) {
             final CountdownEventEntity _item;
@@ -265,15 +313,43 @@ public final class CountdownEventDao_Impl implements CountdownEventDao {
             } else {
               _tmpDescription = _cursor.getString(_cursorIndexOfDescription);
             }
+            final String _tmpCategory;
+            _tmpCategory = _cursor.getString(_cursorIndexOfCategory);
             final long _tmpTargetDateTime;
             _tmpTargetDateTime = _cursor.getLong(_cursorIndexOfTargetDateTime);
+            final boolean _tmpReminderEnabled;
+            final int _tmp;
+            _tmp = _cursor.getInt(_cursorIndexOfReminderEnabled);
+            _tmpReminderEnabled = _tmp != 0;
+            final Long _tmpReminderTime;
+            if (_cursor.isNull(_cursorIndexOfReminderTime)) {
+              _tmpReminderTime = null;
+            } else {
+              _tmpReminderTime = _cursor.getLong(_cursorIndexOfReminderTime);
+            }
+            final Integer _tmpColor;
+            if (_cursor.isNull(_cursorIndexOfColor)) {
+              _tmpColor = null;
+            } else {
+              _tmpColor = _cursor.getInt(_cursorIndexOfColor);
+            }
+            final String _tmpIcon;
+            if (_cursor.isNull(_cursorIndexOfIcon)) {
+              _tmpIcon = null;
+            } else {
+              _tmpIcon = _cursor.getString(_cursorIndexOfIcon);
+            }
             final long _tmpCreatedAt;
             _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
+            final long _tmpUpdatedAt;
+            _tmpUpdatedAt = _cursor.getLong(_cursorIndexOfUpdatedAt);
             final boolean _tmpIsActive;
-            final int _tmp;
-            _tmp = _cursor.getInt(_cursorIndexOfIsActive);
-            _tmpIsActive = _tmp != 0;
-            _item = new CountdownEventEntity(_tmpId,_tmpTitle,_tmpDescription,_tmpTargetDateTime,_tmpCreatedAt,_tmpIsActive);
+            final int _tmp_1;
+            _tmp_1 = _cursor.getInt(_cursorIndexOfIsActive);
+            _tmpIsActive = _tmp_1 != 0;
+            final int _tmpPriority;
+            _tmpPriority = _cursor.getInt(_cursorIndexOfPriority);
+            _item = new CountdownEventEntity(_tmpId,_tmpTitle,_tmpDescription,_tmpCategory,_tmpTargetDateTime,_tmpReminderEnabled,_tmpReminderTime,_tmpColor,_tmpIcon,_tmpCreatedAt,_tmpUpdatedAt,_tmpIsActive,_tmpPriority);
             _result.add(_item);
           }
           return _result;
@@ -291,7 +367,7 @@ public final class CountdownEventDao_Impl implements CountdownEventDao {
 
   @Override
   public Flow<List<CountdownEventEntity>> getAllEvents() {
-    final String _sql = "SELECT * FROM countdown_events ORDER BY targetDateTime ASC";
+    final String _sql = "SELECT * FROM countdown_events ORDER BY target_date_time ASC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     return CoroutinesRoom.createFlow(__db, false, new String[] {"countdown_events"}, new Callable<List<CountdownEventEntity>>() {
       @Override
@@ -302,9 +378,16 @@ public final class CountdownEventDao_Impl implements CountdownEventDao {
           final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
           final int _cursorIndexOfTitle = CursorUtil.getColumnIndexOrThrow(_cursor, "title");
           final int _cursorIndexOfDescription = CursorUtil.getColumnIndexOrThrow(_cursor, "description");
-          final int _cursorIndexOfTargetDateTime = CursorUtil.getColumnIndexOrThrow(_cursor, "targetDateTime");
-          final int _cursorIndexOfCreatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "createdAt");
-          final int _cursorIndexOfIsActive = CursorUtil.getColumnIndexOrThrow(_cursor, "isActive");
+          final int _cursorIndexOfCategory = CursorUtil.getColumnIndexOrThrow(_cursor, "category");
+          final int _cursorIndexOfTargetDateTime = CursorUtil.getColumnIndexOrThrow(_cursor, "target_date_time");
+          final int _cursorIndexOfReminderEnabled = CursorUtil.getColumnIndexOrThrow(_cursor, "reminder_enabled");
+          final int _cursorIndexOfReminderTime = CursorUtil.getColumnIndexOrThrow(_cursor, "reminder_time");
+          final int _cursorIndexOfColor = CursorUtil.getColumnIndexOrThrow(_cursor, "color");
+          final int _cursorIndexOfIcon = CursorUtil.getColumnIndexOrThrow(_cursor, "icon");
+          final int _cursorIndexOfCreatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "created_at");
+          final int _cursorIndexOfUpdatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "updated_at");
+          final int _cursorIndexOfIsActive = CursorUtil.getColumnIndexOrThrow(_cursor, "is_active");
+          final int _cursorIndexOfPriority = CursorUtil.getColumnIndexOrThrow(_cursor, "priority");
           final List<CountdownEventEntity> _result = new ArrayList<CountdownEventEntity>(_cursor.getCount());
           while (_cursor.moveToNext()) {
             final CountdownEventEntity _item;
@@ -318,15 +401,43 @@ public final class CountdownEventDao_Impl implements CountdownEventDao {
             } else {
               _tmpDescription = _cursor.getString(_cursorIndexOfDescription);
             }
+            final String _tmpCategory;
+            _tmpCategory = _cursor.getString(_cursorIndexOfCategory);
             final long _tmpTargetDateTime;
             _tmpTargetDateTime = _cursor.getLong(_cursorIndexOfTargetDateTime);
+            final boolean _tmpReminderEnabled;
+            final int _tmp;
+            _tmp = _cursor.getInt(_cursorIndexOfReminderEnabled);
+            _tmpReminderEnabled = _tmp != 0;
+            final Long _tmpReminderTime;
+            if (_cursor.isNull(_cursorIndexOfReminderTime)) {
+              _tmpReminderTime = null;
+            } else {
+              _tmpReminderTime = _cursor.getLong(_cursorIndexOfReminderTime);
+            }
+            final Integer _tmpColor;
+            if (_cursor.isNull(_cursorIndexOfColor)) {
+              _tmpColor = null;
+            } else {
+              _tmpColor = _cursor.getInt(_cursorIndexOfColor);
+            }
+            final String _tmpIcon;
+            if (_cursor.isNull(_cursorIndexOfIcon)) {
+              _tmpIcon = null;
+            } else {
+              _tmpIcon = _cursor.getString(_cursorIndexOfIcon);
+            }
             final long _tmpCreatedAt;
             _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
+            final long _tmpUpdatedAt;
+            _tmpUpdatedAt = _cursor.getLong(_cursorIndexOfUpdatedAt);
             final boolean _tmpIsActive;
-            final int _tmp;
-            _tmp = _cursor.getInt(_cursorIndexOfIsActive);
-            _tmpIsActive = _tmp != 0;
-            _item = new CountdownEventEntity(_tmpId,_tmpTitle,_tmpDescription,_tmpTargetDateTime,_tmpCreatedAt,_tmpIsActive);
+            final int _tmp_1;
+            _tmp_1 = _cursor.getInt(_cursorIndexOfIsActive);
+            _tmpIsActive = _tmp_1 != 0;
+            final int _tmpPriority;
+            _tmpPriority = _cursor.getInt(_cursorIndexOfPriority);
+            _item = new CountdownEventEntity(_tmpId,_tmpTitle,_tmpDescription,_tmpCategory,_tmpTargetDateTime,_tmpReminderEnabled,_tmpReminderTime,_tmpColor,_tmpIcon,_tmpCreatedAt,_tmpUpdatedAt,_tmpIsActive,_tmpPriority);
             _result.add(_item);
           }
           return _result;
@@ -359,9 +470,16 @@ public final class CountdownEventDao_Impl implements CountdownEventDao {
           final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
           final int _cursorIndexOfTitle = CursorUtil.getColumnIndexOrThrow(_cursor, "title");
           final int _cursorIndexOfDescription = CursorUtil.getColumnIndexOrThrow(_cursor, "description");
-          final int _cursorIndexOfTargetDateTime = CursorUtil.getColumnIndexOrThrow(_cursor, "targetDateTime");
-          final int _cursorIndexOfCreatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "createdAt");
-          final int _cursorIndexOfIsActive = CursorUtil.getColumnIndexOrThrow(_cursor, "isActive");
+          final int _cursorIndexOfCategory = CursorUtil.getColumnIndexOrThrow(_cursor, "category");
+          final int _cursorIndexOfTargetDateTime = CursorUtil.getColumnIndexOrThrow(_cursor, "target_date_time");
+          final int _cursorIndexOfReminderEnabled = CursorUtil.getColumnIndexOrThrow(_cursor, "reminder_enabled");
+          final int _cursorIndexOfReminderTime = CursorUtil.getColumnIndexOrThrow(_cursor, "reminder_time");
+          final int _cursorIndexOfColor = CursorUtil.getColumnIndexOrThrow(_cursor, "color");
+          final int _cursorIndexOfIcon = CursorUtil.getColumnIndexOrThrow(_cursor, "icon");
+          final int _cursorIndexOfCreatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "created_at");
+          final int _cursorIndexOfUpdatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "updated_at");
+          final int _cursorIndexOfIsActive = CursorUtil.getColumnIndexOrThrow(_cursor, "is_active");
+          final int _cursorIndexOfPriority = CursorUtil.getColumnIndexOrThrow(_cursor, "priority");
           final CountdownEventEntity _result;
           if (_cursor.moveToFirst()) {
             final long _tmpId;
@@ -374,15 +492,43 @@ public final class CountdownEventDao_Impl implements CountdownEventDao {
             } else {
               _tmpDescription = _cursor.getString(_cursorIndexOfDescription);
             }
+            final String _tmpCategory;
+            _tmpCategory = _cursor.getString(_cursorIndexOfCategory);
             final long _tmpTargetDateTime;
             _tmpTargetDateTime = _cursor.getLong(_cursorIndexOfTargetDateTime);
+            final boolean _tmpReminderEnabled;
+            final int _tmp;
+            _tmp = _cursor.getInt(_cursorIndexOfReminderEnabled);
+            _tmpReminderEnabled = _tmp != 0;
+            final Long _tmpReminderTime;
+            if (_cursor.isNull(_cursorIndexOfReminderTime)) {
+              _tmpReminderTime = null;
+            } else {
+              _tmpReminderTime = _cursor.getLong(_cursorIndexOfReminderTime);
+            }
+            final Integer _tmpColor;
+            if (_cursor.isNull(_cursorIndexOfColor)) {
+              _tmpColor = null;
+            } else {
+              _tmpColor = _cursor.getInt(_cursorIndexOfColor);
+            }
+            final String _tmpIcon;
+            if (_cursor.isNull(_cursorIndexOfIcon)) {
+              _tmpIcon = null;
+            } else {
+              _tmpIcon = _cursor.getString(_cursorIndexOfIcon);
+            }
             final long _tmpCreatedAt;
             _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
+            final long _tmpUpdatedAt;
+            _tmpUpdatedAt = _cursor.getLong(_cursorIndexOfUpdatedAt);
             final boolean _tmpIsActive;
-            final int _tmp;
-            _tmp = _cursor.getInt(_cursorIndexOfIsActive);
-            _tmpIsActive = _tmp != 0;
-            _result = new CountdownEventEntity(_tmpId,_tmpTitle,_tmpDescription,_tmpTargetDateTime,_tmpCreatedAt,_tmpIsActive);
+            final int _tmp_1;
+            _tmp_1 = _cursor.getInt(_cursorIndexOfIsActive);
+            _tmpIsActive = _tmp_1 != 0;
+            final int _tmpPriority;
+            _tmpPriority = _cursor.getInt(_cursorIndexOfPriority);
+            _result = new CountdownEventEntity(_tmpId,_tmpTitle,_tmpDescription,_tmpCategory,_tmpTargetDateTime,_tmpReminderEnabled,_tmpReminderTime,_tmpColor,_tmpIcon,_tmpCreatedAt,_tmpUpdatedAt,_tmpIsActive,_tmpPriority);
           } else {
             _result = null;
           }

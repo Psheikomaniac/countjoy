@@ -18,15 +18,25 @@ fun CountdownEventEntity.toDomain(): CountdownEvent {
         id = id,
         title = title,
         description = description,
+        category = category,
         targetDateTime = LocalDateTime.ofInstant(
             Instant.ofEpochMilli(targetDateTime),
             ZoneId.systemDefault()
         ),
+        reminderEnabled = reminderEnabled,
+        reminderTime = reminderTime,
+        color = color,
+        icon = icon,
         createdAt = LocalDateTime.ofInstant(
             Instant.ofEpochMilli(createdAt),
             ZoneId.systemDefault()
         ),
-        isActive = isActive
+        updatedAt = LocalDateTime.ofInstant(
+            Instant.ofEpochMilli(updatedAt),
+            ZoneId.systemDefault()
+        ),
+        isActive = isActive,
+        priority = priority
     )
 }
 
@@ -38,8 +48,15 @@ fun CountdownEvent.toEntity(): CountdownEventEntity {
         id = id,
         title = title,
         description = description,
+        category = category,
         targetDateTime = targetDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli(),
+        reminderEnabled = reminderEnabled,
+        reminderTime = reminderTime,
+        color = color,
+        icon = icon,
         createdAt = createdAt.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli(),
-        isActive = isActive
+        updatedAt = updatedAt.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli(),
+        isActive = isActive,
+        priority = priority
     )
 }

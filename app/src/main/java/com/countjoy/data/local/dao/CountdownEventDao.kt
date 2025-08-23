@@ -7,10 +7,10 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CountdownEventDao {
     
-    @Query("SELECT * FROM countdown_events WHERE isActive = 1 ORDER BY targetDateTime ASC")
+    @Query("SELECT * FROM countdown_events WHERE is_active = 1 ORDER BY target_date_time ASC")
     fun getAllActiveEvents(): Flow<List<CountdownEventEntity>>
     
-    @Query("SELECT * FROM countdown_events ORDER BY targetDateTime ASC")
+    @Query("SELECT * FROM countdown_events ORDER BY target_date_time ASC")
     fun getAllEvents(): Flow<List<CountdownEventEntity>>
     
     @Query("SELECT * FROM countdown_events WHERE id = :id")
@@ -28,6 +28,6 @@ interface CountdownEventDao {
     @Query("DELETE FROM countdown_events WHERE id = :id")
     suspend fun deleteEventById(id: Long)
     
-    @Query("UPDATE countdown_events SET isActive = :isActive WHERE id = :id")
+    @Query("UPDATE countdown_events SET is_active = :isActive WHERE id = :id")
     suspend fun updateEventActiveStatus(id: Long, isActive: Boolean)
 }
