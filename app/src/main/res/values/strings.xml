@@ -83,6 +83,23 @@
     <string name="language_change_confirm">Change app language to %1$s?</string>
     <string name="language_rtl_warning">This language uses right-to-left text direction.</string>
     <string name="language_selection_info">Choose your preferred language. The app will immediately update to display in your selected language.</string>
+    <string name="language_restart_required">App will restart to apply language changes</string>
+    
+    <!-- Language Names -->
+    <string name="language_english">English</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_french">Français</string>
+    <string name="language_german">Deutsch</string>
+    <string name="language_portuguese">Português</string>
+    <string name="language_italian">Italiano</string>
+    <string name="language_dutch">Nederlands</string>
+    <string name="language_russian">Русский</string>
+    <string name="language_chinese_simplified">简体中文</string>
+    <string name="language_chinese_traditional">繁體中文</string>
+    <string name="language_japanese">日本語</string>
+    <string name="language_korean">한국어</string>
+    <string name="language_arabic">العربية</string>
+    <string name="language_hindi">हिन्दी</string>
     
     <!-- Notifications Settings -->
     <string name="notification_settings">Notification Settings</string>
@@ -107,6 +124,14 @@
     <string name="high_contrast">High Contrast</string>
     <string name="reduce_motion">Reduce Motion</string>
     <string name="screen_reader_optimized">Screen Reader Optimized</string>
+    
+    <!-- Event Creation -->
+    <string name="event_name_label">Event Name</string>
+    <string name="event_description_label">Description (Optional)</string>
+    
+    <!-- Service Messages -->
+    <string name="event_reached_target">%1$s has reached its target time</string>
+    <string name="countdown_notification_title">CountJoy Countdown</string>
     
     <!-- Plurals -->
     <plurals name="days_count">

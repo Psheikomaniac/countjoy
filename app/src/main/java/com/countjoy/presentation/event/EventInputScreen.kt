@@ -10,8 +10,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.countjoy.R
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -37,11 +39,11 @@ fun EventInputScreen(
         topBar = {
             TopAppBar(
                 title = { 
-                    Text(if (eventId != null) "Edit Event" else "New Event")
+                    Text(if (eventId != null) stringResource(R.string.edit_event) else stringResource(R.string.new_event))
                 },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.Default.ArrowBack, contentDescription = stringResource(R.string.back))
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -63,7 +65,7 @@ fun EventInputScreen(
             OutlinedTextField(
                 value = uiState.title,
                 onValueChange = viewModel::updateTitle,
-                label = { Text("Event Name") },
+                label = { Text(stringResource(R.string.event_name_label)) },
                 isError = uiState.titleError != null,
                 supportingText = {
                     uiState.titleError?.let {
@@ -78,7 +80,7 @@ fun EventInputScreen(
             OutlinedTextField(
                 value = uiState.description,
                 onValueChange = viewModel::updateDescription,
-                label = { Text("Description (Optional)") },
+                label = { Text(stringResource(R.string.event_description_label)) },
                 modifier = Modifier.fillMaxWidth(),
                 minLines = 3,
                 maxLines = 5
@@ -98,14 +100,14 @@ fun EventInputScreen(
                 ) {
                     Column {
                         Text(
-                            "Date",
+                            stringResource(R.string.date),
                             style = MaterialTheme.typography.labelMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Text(
                             uiState.selectedDate?.format(
                                 DateTimeFormatter.ofPattern("MMMM dd, yyyy")
-                            ) ?: "Select date",
+                            ) ?: stringResource(R.string.select_date),
                             style = MaterialTheme.typography.bodyLarge
                         )
                     }
@@ -142,7 +144,7 @@ fun EventInputScreen(
                         Text(
                             uiState.selectedTime?.format(
                                 DateTimeFormatter.ofPattern("hh:mm a")
-                            ) ?: "All day",
+                            ) ?: stringResource(R.string.all_day),
                             style = MaterialTheme.typography.bodyLarge
                         )
                     }

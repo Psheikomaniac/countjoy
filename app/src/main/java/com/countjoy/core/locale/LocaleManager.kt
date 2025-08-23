@@ -47,7 +47,7 @@ class LocaleManager @Inject constructor(
      * Gets the currently active locale.
      */
     fun getCurrentLocale(): Locale {
-        val languageCode = preferencesManager.getString(PREFERENCE_KEY_LANGUAGE, DEFAULT_LANGUAGE)
+        val languageCode = preferencesManager.getString(PREFERENCE_KEY_LANGUAGE, DEFAULT_LANGUAGE) ?: DEFAULT_LANGUAGE
         return Locale(languageCode)
     }
     

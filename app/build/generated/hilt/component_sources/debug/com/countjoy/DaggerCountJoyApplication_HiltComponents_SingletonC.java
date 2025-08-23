@@ -646,9 +646,9 @@ public final class DaggerCountJoyApplication_HiltComponents_SingletonC {
 
     private final SingletonCImpl singletonCImpl = this;
 
-    private Provider<SharedPreferencesManager> sharedPreferencesManagerProvider;
-
     private Provider<Context> provideApplicationContextProvider;
+
+    private Provider<SharedPreferencesManager> sharedPreferencesManagerProvider;
 
     private Provider<LocaleManager> localeManagerProvider;
 
@@ -666,9 +666,9 @@ public final class DaggerCountJoyApplication_HiltComponents_SingletonC {
 
     @SuppressWarnings("unchecked")
     private void initialize(final ApplicationContextModule applicationContextModuleParam) {
-      this.sharedPreferencesManagerProvider = DoubleCheck.provider(new SwitchingProvider<SharedPreferencesManager>(singletonCImpl, 0));
-      this.provideApplicationContextProvider = DoubleCheck.provider(new SwitchingProvider<Context>(singletonCImpl, 2));
-      this.localeManagerProvider = DoubleCheck.provider(new SwitchingProvider<LocaleManager>(singletonCImpl, 1));
+      this.provideApplicationContextProvider = DoubleCheck.provider(new SwitchingProvider<Context>(singletonCImpl, 1));
+      this.sharedPreferencesManagerProvider = DoubleCheck.provider(new SwitchingProvider<SharedPreferencesManager>(singletonCImpl, 2));
+      this.localeManagerProvider = DoubleCheck.provider(new SwitchingProvider<LocaleManager>(singletonCImpl, 0));
       this.provideCountJoyDatabaseProvider = DoubleCheck.provider(new SwitchingProvider<CountJoyDatabase>(singletonCImpl, 5));
       this.provideCountdownEventDaoProvider = DoubleCheck.provider(new SwitchingProvider<CountdownEventDao>(singletonCImpl, 4));
       this.eventRepositoryImplProvider = DoubleCheck.provider(new SwitchingProvider<EventRepositoryImpl>(singletonCImpl, 3));
@@ -676,6 +676,7 @@ public final class DaggerCountJoyApplication_HiltComponents_SingletonC {
 
     @Override
     public void injectCountJoyApplication(CountJoyApplication countJoyApplication) {
+      injectCountJoyApplication2(countJoyApplication);
     }
 
     @Override
@@ -693,6 +694,11 @@ public final class DaggerCountJoyApplication_HiltComponents_SingletonC {
       return new ServiceCBuilder(singletonCImpl);
     }
 
+    private CountJoyApplication injectCountJoyApplication2(CountJoyApplication instance) {
+      CountJoyApplication_MembersInjector.injectLocaleManager(instance, localeManagerProvider.get());
+      return instance;
+    }
+
     private static final class SwitchingProvider<T> implements Provider<T> {
       private final SingletonCImpl singletonCImpl;
 
@@ -707,14 +713,14 @@ public final class DaggerCountJoyApplication_HiltComponents_SingletonC {
       @Override
       public T get() {
         switch (id) {
-          case 0: // com.countjoy.data.local.preferences.SharedPreferencesManager 
-          return (T) new SharedPreferencesManager(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
-
-          case 1: // com.countjoy.core.locale.LocaleManager 
+          case 0: // com.countjoy.core.locale.LocaleManager 
           return (T) new LocaleManager(singletonCImpl.provideApplicationContextProvider.get(), singletonCImpl.sharedPreferencesManagerProvider.get());
 
-          case 2: // android.content.Context 
+          case 1: // android.content.Context 
           return (T) AppModule_ProvideApplicationContextFactory.provideApplicationContext(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
+
+          case 2: // com.countjoy.data.local.preferences.SharedPreferencesManager 
+          return (T) new SharedPreferencesManager(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
 
           case 3: // com.countjoy.data.repository.EventRepositoryImpl 
           return (T) new EventRepositoryImpl(singletonCImpl.provideCountdownEventDaoProvider.get());

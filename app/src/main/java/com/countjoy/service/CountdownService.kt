@@ -165,8 +165,8 @@ class CountdownService : Service() {
         )
         
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("Countdown Expired!")
-            .setContentText("${event.title} has reached its target time")
+            .setContentTitle(getString(R.string.expired))
+            .setContentText(getString(R.string.event_reached_target, event.title))
             .setSmallIcon(android.R.drawable.ic_dialog_info)
             .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
