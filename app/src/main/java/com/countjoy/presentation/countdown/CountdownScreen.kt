@@ -192,13 +192,28 @@ fun EventCard(
                             color = MaterialTheme.colorScheme.error
                         )
                     } else {
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(16.dp)
-                        ) {
-                            TimeUnit(value = detailedTime.days.toInt(), label = stringResource(id = R.string.days))
-                            TimeUnit(value = detailedTime.hours, label = stringResource(id = R.string.hours))
-                            TimeUnit(value = detailedTime.minutes, label = stringResource(id = R.string.minutes))
-                            TimeUnit(value = detailedTime.seconds, label = "Sec")
+                        // Check if countdown has reached zero (all values are 0)
+                        val hasReachedZero = detailedTime.days == 0L && 
+                                           detailedTime.hours == 0 && 
+                                           detailedTime.minutes == 0 && 
+                                           detailedTime.seconds == 0
+                        
+                        if (hasReachedZero) {
+                            // Hide counter when it reaches 0, show completion message instead
+                            Text(
+                                text = stringResource(id = R.string.event_completed),
+                                style = MaterialTheme.typography.headlineMedium,
+                                color = MaterialTheme.colorScheme.tertiary
+                            )
+                        } else {
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                            ) {
+                                TimeUnit(value = detailedTime.days.toInt(), label = stringResource(id = R.string.days))
+                                TimeUnit(value = detailedTime.hours, label = stringResource(id = R.string.hours))
+                                TimeUnit(value = detailedTime.minutes, label = stringResource(id = R.string.minutes))
+                                TimeUnit(value = detailedTime.seconds, label = "Sec")
+                            }
                         }
                     }
                 }

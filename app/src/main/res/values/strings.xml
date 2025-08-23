@@ -29,6 +29,7 @@
     
     <!-- Time Units -->
     <string name="expired">Expired</string>
+    <string name="event_completed">Event Completed!</string>
     <string name="today">Today!</string>
     <string name="day">day</string>
     <string name="days">days</string>
