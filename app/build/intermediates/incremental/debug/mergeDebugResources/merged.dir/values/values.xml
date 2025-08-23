@@ -402,6 +402,7 @@
     <string name="edit">Edit</string>
     <string name="edit_event">Edit Event</string>
     <string name="enable_notifications">Enable Notifications</string>
+    <string name="event_completed">Event Completed!</string>
     <string name="event_description_label">Description (Optional)</string>
     <string name="event_name">Event Name</string>
     <string name="event_name_label">Event Name</string>

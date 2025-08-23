@@ -26,7 +26,12 @@ class SharedPreferencesManager @Inject constructor(
         const val KEY_THEME_MODE = "theme_mode"
         const val KEY_NOTIFICATION_ENABLED = "notifications_enabled"
         const val KEY_SOUND_ENABLED = "sound_enabled"
+        const val KEY_SOUND_VOLUME = "sound_volume"
         const val KEY_VIBRATION_ENABLED = "vibration_enabled"
+        const val KEY_HAPTIC_INTENSITY = "haptic_intensity"
+        const val KEY_MILESTONE_NOTIFICATIONS = "milestone_notifications"
+        const val KEY_COMPLETION_CELEBRATION = "completion_celebration"
+        const val KEY_BUTTON_CLICK_FEEDBACK = "button_click_feedback"
         const val KEY_FIRST_LAUNCH = "first_launch"
         const val KEY_DEFAULT_COUNTDOWN_TIME = "default_countdown_time"
         const val KEY_TIME_FORMAT_24H = "time_format_24h"
@@ -77,8 +82,28 @@ class SharedPreferencesManager @Inject constructor(
     fun isSoundEnabled(): Boolean = prefs.getBoolean(KEY_SOUND_ENABLED, true)
     fun setSoundEnabled(enabled: Boolean) = prefs.edit().putBoolean(KEY_SOUND_ENABLED, enabled).apply()
     
+    fun getSoundEnabled(): Boolean = isSoundEnabled()
+    
+    fun getSoundVolume(): Float = prefs.getFloat(KEY_SOUND_VOLUME, 0.7f)
+    fun setSoundVolume(volume: Float) = prefs.edit().putFloat(KEY_SOUND_VOLUME, volume).apply()
+    
     fun isVibrationEnabled(): Boolean = prefs.getBoolean(KEY_VIBRATION_ENABLED, true)
     fun setVibrationEnabled(enabled: Boolean) = prefs.edit().putBoolean(KEY_VIBRATION_ENABLED, enabled).apply()
+    
+    fun getHapticEnabled(): Boolean = isVibrationEnabled()
+    fun setHapticEnabled(enabled: Boolean) = setVibrationEnabled(enabled)
+    
+    fun getHapticIntensity(): Int = prefs.getInt(KEY_HAPTIC_INTENSITY, 128)
+    fun setHapticIntensity(intensity: Int) = prefs.edit().putInt(KEY_HAPTIC_INTENSITY, intensity).apply()
+    
+    fun getMilestoneNotifications(): Boolean = prefs.getBoolean(KEY_MILESTONE_NOTIFICATIONS, true)
+    fun setMilestoneNotifications(enabled: Boolean) = prefs.edit().putBoolean(KEY_MILESTONE_NOTIFICATIONS, enabled).apply()
+    
+    fun getCompletionCelebration(): Boolean = prefs.getBoolean(KEY_COMPLETION_CELEBRATION, true)
+    fun setCompletionCelebration(enabled: Boolean) = prefs.edit().putBoolean(KEY_COMPLETION_CELEBRATION, enabled).apply()
+    
+    fun getButtonClickFeedback(): Boolean = prefs.getBoolean(KEY_BUTTON_CLICK_FEEDBACK, false)
+    fun setButtonClickFeedback(enabled: Boolean) = prefs.edit().putBoolean(KEY_BUTTON_CLICK_FEEDBACK, enabled).apply()
     
     // App settings
     fun isFirstLaunch(): Boolean = prefs.getBoolean(KEY_FIRST_LAUNCH, true)

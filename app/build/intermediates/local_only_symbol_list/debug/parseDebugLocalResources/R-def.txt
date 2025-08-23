@@ -37,6 +37,7 @@ string display
 string edit
 string edit_event
 string enable_notifications
+string event_completed
 string event_description_label
 string event_name
 string event_name_label
