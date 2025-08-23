@@ -10,6 +10,8 @@ import androidx.navigation.navArgument
 import androidx.navigation.NavType
 import com.countjoy.presentation.countdown.CountdownScreen
 import com.countjoy.presentation.event.EventInputScreen
+import com.countjoy.presentation.settings.LanguagePickerScreen
+import com.countjoy.presentation.settings.SettingsScreen
 
 /**
  * Navigation destinations for the CountJoy app
@@ -25,6 +27,8 @@ sealed class Screen(val route: String) {
             }
         }
     }
+    object Settings : Screen("settings")
+    object LanguagePicker : Screen("language_picker")
 }
 
 /**
@@ -34,7 +38,8 @@ sealed class Screen(val route: String) {
 fun CountJoyNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = Screen.Countdown.route
+    startDestination: String = Screen.Countdown.route,
+    onLanguageChanged: () -> Unit = {}
 ) {
     NavHost(
         navController = navController,
@@ -46,6 +51,9 @@ fun CountJoyNavHost(
             CountdownScreen(
                 onNavigateToEventInput = { eventId ->
                     navController.navigate(Screen.EventInput.createRoute(eventId))
+                },
+                onNavigateToSettings = {
+                    navController.navigate(Screen.Settings.route)
                 }
             )
         }
@@ -67,6 +75,28 @@ fun CountJoyNavHost(
                 onNavigateBack = {
                     navController.popBackStack()
                 }
+            )
+        }
+        
+        // Settings Screen - App settings and preferences
+        composable(Screen.Settings.route) {
+            SettingsScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                },
+                onLanguageClick = {
+                    navController.navigate(Screen.LanguagePicker.route)
+                }
+            )
+        }
+        
+        // Language Picker Screen - Language selection
+        composable(Screen.LanguagePicker.route) {
+            LanguagePickerScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                },
+                onLanguageChanged = onLanguageChanged
             )
         }
     }

@@ -1,5 +1,6 @@
 package com.countjoy.presentation.settings
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -24,11 +25,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.countjoy.R
+import com.countjoy.core.locale.LocaleManager
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
     onNavigateBack: () -> Unit,
+    onLanguageClick: () -> Unit = {},
     viewModel: SettingsViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -37,10 +41,10 @@ fun SettingsScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Settings") },
+                title = { Text(stringResource(id = R.string.settings)) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.Default.ArrowBack, contentDescription = stringResource(id = R.string.back))
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -58,7 +62,7 @@ fun SettingsScreen(
         ) {
             // Theme Section
             SettingsSection(
-                title = "Appearance",
+                title = stringResource(id = R.string.appearance),
                 icon = Icons.Default.Edit
             ) {
                 ThemeSelector(
@@ -71,12 +75,12 @@ fun SettingsScreen(
 
             // Notification Section
             SettingsSection(
-                title = "Notifications",
+                title = stringResource(id = R.string.notifications),
                 icon = Icons.Default.Notifications
             ) {
                 SwitchSettingItem(
-                    title = "Enable Notifications",
-                    subtitle = "Receive countdown alerts and reminders",
+                    title = stringResource(id = R.string.enable_notifications),
+                    subtitle = stringResource(id = R.string.notification_description),
                     isChecked = uiState.notificationsEnabled,
                     onCheckedChange = viewModel::onNotificationsChanged
                 )
@@ -84,15 +88,15 @@ fun SettingsScreen(
                 AnimatedVisibility(visible = uiState.notificationsEnabled) {
                     Column {
                         SwitchSettingItem(
-                            title = "Sound",
-                            subtitle = "Play sound for notifications",
+                            title = stringResource(id = R.string.notification_sound),
+                            subtitle = stringResource(id = R.string.sound_description),
                             isChecked = uiState.soundEnabled,
                             onCheckedChange = viewModel::onSoundChanged,
                             modifier = Modifier.padding(start = 16.dp)
                         )
                         SwitchSettingItem(
-                            title = "Vibration",
-                            subtitle = "Vibrate for notifications",
+                            title = stringResource(id = R.string.notification_vibration),
+                            subtitle = stringResource(id = R.string.vibration_description),
                             isChecked = uiState.vibrationEnabled,
                             onCheckedChange = viewModel::onVibrationChanged,
                             modifier = Modifier.padding(start = 16.dp)
@@ -102,49 +106,65 @@ fun SettingsScreen(
             }
 
             Divider(modifier = Modifier.padding(vertical = 8.dp))
-
-            // Display Section
+            
+            // Language Section
             SettingsSection(
-                title = "Display",
-                icon = Icons.Default.Settings
+                title = stringResource(id = R.string.language_and_region),
+                icon = Icons.Default.Place
             ) {
-                SwitchSettingItem(
-                    title = "24-Hour Format",
-                    subtitle = "Use 24-hour time format",
-                    isChecked = uiState.use24HourFormat,
-                    onCheckedChange = viewModel::on24HourFormatChanged
+                ClickableSettingItem(
+                    title = stringResource(id = R.string.language),
+                    subtitle = getCurrentLanguageName(viewModel.uiState.collectAsState().value.currentLanguageCode),
+                    onClick = onLanguageClick
                 )
                 
                 ClickableSettingItem(
-                    title = "Date Format",
+                    title = stringResource(id = R.string.date_format),
                     subtitle = uiState.dateFormat,
                     onClick = { /* TODO: Show date format picker */ }
                 )
+                
+                SwitchSettingItem(
+                    title = stringResource(id = R.string.twenty_four_hour_format),
+                    subtitle = stringResource(id = R.string.twenty_four_hour_description),
+                    isChecked = uiState.use24HourFormat,
+                    onCheckedChange = viewModel::on24HourFormatChanged
+                )
+            }
+
+            Divider(modifier = Modifier.padding(vertical = 8.dp))
+
+            // Display Section
+            SettingsSection(
+                title = stringResource(id = R.string.display),
+                icon = Icons.Default.Settings
+            ) {
+                // Moved to Language & Region section
             }
 
             Divider(modifier = Modifier.padding(vertical = 8.dp))
 
             // Data Management Section
             SettingsSection(
-                title = "Data Management",
+                title = stringResource(id = R.string.data_management),
                 icon = Icons.Default.AccountBox
             ) {
                 SwitchSettingItem(
-                    title = "Auto-Delete Expired",
-                    subtitle = "Automatically remove expired countdowns",
+                    title = stringResource(id = R.string.auto_delete_expired),
+                    subtitle = stringResource(id = R.string.auto_delete_description),
                     isChecked = uiState.autoDeleteExpired,
                     onCheckedChange = viewModel::onAutoDeleteChanged
                 )
                 
                 ClickableSettingItem(
-                    title = "Backup Data",
-                    subtitle = "Export your countdowns",
+                    title = stringResource(id = R.string.backup_data),
+                    subtitle = stringResource(id = R.string.backup_description),
                     onClick = { /* TODO: Implement backup */ }
                 )
                 
                 ClickableSettingItem(
-                    title = "Restore Data",
-                    subtitle = "Import countdowns from backup",
+                    title = stringResource(id = R.string.restore_data),
+                    subtitle = stringResource(id = R.string.restore_description),
                     onClick = { /* TODO: Implement restore */ }
                 )
             }
@@ -153,24 +173,24 @@ fun SettingsScreen(
 
             // About Section
             SettingsSection(
-                title = "About",
+                title = stringResource(id = R.string.about),
                 icon = Icons.Default.Info
             ) {
                 ClickableSettingItem(
-                    title = "Version",
+                    title = stringResource(id = R.string.version),
                     subtitle = "1.0.0",
                     onClick = { }
                 )
                 
                 ClickableSettingItem(
-                    title = "Privacy Policy",
-                    subtitle = "View privacy policy",
+                    title = stringResource(id = R.string.privacy_policy),
+                    subtitle = stringResource(id = R.string.privacy_policy_description),
                     onClick = { /* TODO: Open privacy policy */ }
                 )
                 
                 ClickableSettingItem(
-                    title = "Terms of Service",
-                    subtitle = "View terms of service",
+                    title = stringResource(id = R.string.terms_of_service),
+                    subtitle = stringResource(id = R.string.terms_of_service_description),
                     onClick = { /* TODO: Open terms */ }
                 )
             }
@@ -178,6 +198,12 @@ fun SettingsScreen(
             Spacer(modifier = Modifier.height(16.dp))
         }
     }
+}
+
+@Composable
+private fun getCurrentLanguageName(languageCode: String?): String {
+    val currentCode = languageCode ?: Locale.getDefault().language
+    return LocaleManager.SUPPORTED_LOCALES[currentCode]?.first ?: "English"
 }
 
 @Composable
@@ -390,18 +416,5 @@ private fun ClickableSettingItem(
             contentDescription = null,
             tint = MaterialTheme.colorScheme.onSurfaceVariant
         )
-    }
-}
-
-// Import AnimatedVisibility
-@Composable
-private fun AnimatedVisibility(
-    visible: Boolean,
-    content: @Composable () -> Unit
-) {
-    androidx.compose.animation.AnimatedVisibility(
-        visible = visible
-    ) {
-        content()
     }
 }

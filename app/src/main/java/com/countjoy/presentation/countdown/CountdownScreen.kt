@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -23,6 +24,7 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun CountdownScreen(
     onNavigateToEventInput: (Long?) -> Unit,
+    onNavigateToSettings: () -> Unit,
     viewModel: CountdownViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -30,7 +32,16 @@ fun CountdownScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("CountJoy") },
+                title = { Text(stringResource(id = R.string.app_name)) },
+                actions = {
+                    IconButton(onClick = onNavigateToSettings) {
+                        Icon(
+                            imageVector = Icons.Default.Settings,
+                            contentDescription = stringResource(id = R.string.settings),
+                            tint = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    }
+                },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
@@ -42,7 +53,7 @@ fun CountdownScreen(
                 onClick = { onNavigateToEventInput(null) },
                 containerColor = MaterialTheme.colorScheme.primary
             ) {
-                Icon(Icons.Default.Add, contentDescription = "Add Event")
+                Icon(Icons.Default.Add, contentDescription = stringResource(id = R.string.add_event))
             }
         }
     ) { paddingValues ->
@@ -87,20 +98,20 @@ fun EmptyState(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "No events yet",
+            text = stringResource(id = R.string.no_events_yet),
             style = MaterialTheme.typography.headlineMedium,
             textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = "Create your first countdown event",
+            text = stringResource(id = R.string.create_first_countdown),
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = onAddEvent) {
-            Text("Create Event")
+            Text(stringResource(id = R.string.create_event))
         }
     }
 }
@@ -176,7 +187,7 @@ fun EventCard(
                 ) {
                     if (isExpired) {
                         Text(
-                            text = "Expired",
+                            text = stringResource(id = R.string.expired),
                             style = MaterialTheme.typography.headlineMedium,
                             color = MaterialTheme.colorScheme.error
                         )
@@ -184,9 +195,9 @@ fun EventCard(
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(16.dp)
                         ) {
-                            TimeUnit(value = detailedTime.days.toInt(), label = "Days")
-                            TimeUnit(value = detailedTime.hours, label = "Hours")
-                            TimeUnit(value = detailedTime.minutes, label = "Min")
+                            TimeUnit(value = detailedTime.days.toInt(), label = stringResource(id = R.string.days))
+                            TimeUnit(value = detailedTime.hours, label = stringResource(id = R.string.hours))
+                            TimeUnit(value = detailedTime.minutes, label = stringResource(id = R.string.minutes))
                             TimeUnit(value = detailedTime.seconds, label = "Sec")
                         }
                     }

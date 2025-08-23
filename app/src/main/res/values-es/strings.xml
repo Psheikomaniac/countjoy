@@ -1,0 +1,124 @@
+<resources>
+    <string name="app_name">CountJoy</string>
+    
+    <!-- Navigation -->
+    <string name="back">Atrás</string>
+    <string name="cancel">Cancelar</string>
+    <string name="save">Guardar</string>
+    <string name="ok">OK</string>
+    <string name="clear">Limpiar</string>
+    <string name="delete">Eliminar</string>
+    <string name="edit">Editar</string>
+    <string name="share">Compartir</string>
+    
+    <!-- Home Screen -->
+    <string name="no_events_yet">No hay eventos aún</string>
+    <string name="create_first_countdown">Crea tu primer evento de cuenta regresiva</string>
+    <string name="add_event">Añadir Evento</string>
+    
+    <!-- Event Management -->
+    <string name="create_event">Crear Evento</string>
+    <string name="edit_event">Editar Evento</string>
+    <string name="new_event">Nuevo Evento</string>
+    <string name="event_name">Nombre del Evento</string>
+    <string name="description_optional">Descripción (Opcional)</string>
+    <string name="select_date">Seleccionar fecha</string>
+    <string name="date">Fecha</string>
+    <string name="time_optional">Hora (Opcional)</string>
+    <string name="all_day">Todo el día</string>
+    
+    <!-- Time Units -->
+    <string name="expired">Expirado</string>
+    <string name="today">¡Hoy!</string>
+    <string name="day">día</string>
+    <string name="days">días</string>
+    <string name="hour">hora</string>
+    <string name="hours">horas</string>
+    <string name="minute">minuto</string>
+    <string name="minutes">minutos</string>
+    <string name="second">segundo</string>
+    <string name="seconds">segundos</string>
+    <string name="week">semana</string>
+    <string name="weeks">semanas</string>
+    <string name="month">mes</string>
+    <string name="months">meses</string>
+    <string name="year">año</string>
+    <string name="years">años</string>
+    
+    <!-- Settings -->
+    <string name="settings">Configuración</string>
+    <string name="display">Pantalla</string>
+    <string name="language_and_region">Idioma y Región</string>
+    <string name="appearance">Apariencia</string>
+    <string name="notifications">Notificaciones</string>
+    <string name="language">Idioma</string>
+    <string name="theme">Tema</string>
+    <string name="light_theme">Tema Claro</string>
+    <string name="dark_theme">Tema Oscuro</string>
+    <string name="system_default">Predeterminado del Sistema</string>
+    <string name="enable_notifications">Activar Notificaciones</string>
+    <string name="notification_description">Recibir alertas y recordatorios de cuenta regresiva</string>
+    <string name="notification_sound">Sonido</string>
+    <string name="sound_description">Reproducir sonido para notificaciones</string>
+    <string name="notification_vibration">Vibración</string>
+    <string name="vibration_description">Vibrar para notificaciones</string>
+    <string name="twenty_four_hour_format">Formato 24 Horas</string>
+    <string name="twenty_four_hour_description">Usar formato de hora de 24 horas</string>
+    <string name="date_format">Formato de Fecha</string>
+    <string name="auto_delete_expired">Eliminar Expirados Automáticamente</string>
+    <string name="auto_delete_description">Eliminar automáticamente las cuentas regresivas expiradas</string>
+    <string name="backup_data">Copia de Seguridad</string>
+    <string name="backup_description">Exportar tus cuentas regresivas</string>
+    <string name="restore_data">Restaurar Datos</string>
+    <string name="restore_description">Importar cuentas regresivas desde respaldo</string>
+    <string name="about">Acerca de</string>
+    <string name="version">Versión</string>
+    <string name="privacy_policy">Política de Privacidad</string>
+    <string name="privacy_policy_description">Ver política de privacidad</string>
+    <string name="terms_of_service">Términos de Servicio</string>
+    <string name="terms_of_service_description">Ver términos de servicio</string>
+    
+    <!-- Language Selection -->
+    <string name="change_language">Cambiar Idioma</string>
+    <string name="language_change_confirm">¿Cambiar el idioma de la aplicación a %1$s?</string>
+    <string name="language_rtl_warning">Este idioma utiliza dirección de texto de derecha a izquierda.</string>
+    <string name="language_selection_info">Elige tu idioma preferido. La aplicación se actualizará inmediatamente para mostrar en el idioma seleccionado.</string>
+    
+    <!-- Notifications Settings -->
+    <string name="notification_settings">Configuración de Notificaciones</string>
+    <string name="quiet_hours">Horas Silenciosas</string>
+    <string name="quiet_hours_start">Hora de Inicio</string>
+    <string name="quiet_hours_end">Hora de Fin</string>
+    <string name="notification_priority">Prioridad</string>
+    <string name="high_priority">Alta</string>
+    <string name="medium_priority">Media</string>
+    <string name="low_priority">Baja</string>
+    
+    <!-- Data Management -->
+    <string name="data_management">Gestión de Datos</string>
+    <string name="export_data">Exportar Datos</string>
+    <string name="import_data">Importar Datos</string>
+    <string name="clear_all_data">Borrar Todos los Datos</string>
+    <string name="storage_used">Almacenamiento Usado</string>
+    
+    <!-- Accessibility -->
+    <string name="accessibility">Accesibilidad</string>
+    <string name="font_size">Tamaño de Fuente</string>
+    <string name="high_contrast">Alto Contraste</string>
+    <string name="reduce_motion">Reducir Movimiento</string>
+    <string name="screen_reader_optimized">Optimizado para Lector de Pantalla</string>
+    
+    <!-- Plurals -->
+    <plurals name="days_count">
+        <item quantity="one">%d día</item>
+        <item quantity="other">%d días</item>
+    </plurals>
+    <plurals name="hours_count">
+        <item quantity="one">%d hora</item>
+        <item quantity="other">%d horas</item>
+    </plurals>
+    <plurals name="minutes_count">
+        <item quantity="one">%d minuto</item>
+        <item quantity="other">%d minutos</item>
+    </plurals>
+</resources>

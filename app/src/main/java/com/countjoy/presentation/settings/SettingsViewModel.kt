@@ -2,6 +2,7 @@ package com.countjoy.presentation.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.countjoy.core.locale.LocaleManager
 import com.countjoy.data.local.preferences.SharedPreferencesManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,12 +20,14 @@ data class SettingsUiState(
     val use24HourFormat: Boolean = false,
     val dateFormat: String = SharedPreferencesManager.DATE_FORMAT_DEFAULT,
     val autoDeleteExpired: Boolean = false,
-    val countdownUpdateInterval: Long = 1000L
+    val countdownUpdateInterval: Long = 1000L,
+    val currentLanguageCode: String = LocaleManager.DEFAULT_LANGUAGE
 )
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    private val preferencesManager: SharedPreferencesManager
+    private val preferencesManager: SharedPreferencesManager,
+    private val localeManager: LocaleManager
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(SettingsUiState())
@@ -44,7 +47,8 @@ class SettingsViewModel @Inject constructor(
                 use24HourFormat = preferencesManager.is24HourFormat(),
                 dateFormat = preferencesManager.getDateFormat(),
                 autoDeleteExpired = preferencesManager.isAutoDeleteExpired(),
-                countdownUpdateInterval = preferencesManager.getCountdownUpdateInterval()
+                countdownUpdateInterval = preferencesManager.getCountdownUpdateInterval(),
+                currentLanguageCode = localeManager.getCurrentLocale().language
             )
         }
     }
