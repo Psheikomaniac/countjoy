@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.countjoy.data.local.CountJoyDatabase
 import com.countjoy.data.local.dao.CountdownEventDao
+import com.countjoy.data.local.dao.MilestoneDao
 import com.countjoy.data.local.migration.DatabaseMigrations
 import dagger.Module
 import dagger.Provides
@@ -36,5 +37,13 @@ object DatabaseModule {
         database: CountJoyDatabase
     ): CountdownEventDao {
         return database.countdownEventDao()
+    }
+    
+    @Provides
+    @Singleton
+    fun provideMilestoneDao(
+        database: CountJoyDatabase
+    ): MilestoneDao {
+        return database.milestoneDao()
     }
 }

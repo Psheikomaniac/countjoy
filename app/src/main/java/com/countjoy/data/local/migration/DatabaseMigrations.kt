@@ -72,9 +72,72 @@ object DatabaseMigrations {
     }
     
     /**
+     * Migration from version 2 to version 3
+     * Adds milestones table for tracking countdown milestones
+     */
+    val MIGRATION_2_3 = object : Migration(2, 3) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            // Create the milestones table
+            database.execSQL("""
+                CREATE TABLE IF NOT EXISTS milestones (
+                    id TEXT PRIMARY KEY NOT NULL,
+                    eventId TEXT NOT NULL,
+                    type TEXT NOT NULL,
+                    value REAL NOT NULL,
+                    title TEXT NOT NULL,
+                    message TEXT NOT NULL,
+                    isNotificationEnabled INTEGER NOT NULL,
+                    isAchieved INTEGER NOT NULL,
+                    achievedAt INTEGER,
+                    celebrationEffect TEXT NOT NULL,
+                    FOREIGN KEY(eventId) REFERENCES countdown_events(id) ON DELETE CASCADE
+                )
+            """.trimIndent())
+            
+            // Create index for better performance
+            database.execSQL("CREATE INDEX IF NOT EXISTS index_milestones_eventId ON milestones (eventId)")
+        }
+    }
+    
+    /**
+     * Migration from version 3 to version 4
+     * Adds recurrence_rules table for recurring events support
+     */
+    val MIGRATION_3_4 = object : Migration(3, 4) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            // Create the recurrence_rules table
+            database.execSQL("""
+                CREATE TABLE IF NOT EXISTS recurrence_rules (
+                    id TEXT PRIMARY KEY NOT NULL,
+                    eventId TEXT NOT NULL,
+                    pattern TEXT NOT NULL,
+                    intervalValue INTEGER NOT NULL,
+                    daysOfWeek TEXT,
+                    dayOfMonth INTEGER,
+                    weekOfMonth INTEGER,
+                    monthOfYear INTEGER,
+                    endType TEXT NOT NULL,
+                    endDate INTEGER,
+                    occurrenceCount INTEGER,
+                    exceptions TEXT,
+                    skipWeekends INTEGER NOT NULL,
+                    skipHolidays INTEGER NOT NULL,
+                    lastOccurrenceDate INTEGER,
+                    nextOccurrenceDate INTEGER,
+                    FOREIGN KEY(eventId) REFERENCES countdown_events(id) ON DELETE CASCADE
+                )
+            """.trimIndent())
+            
+            // Create index for better performance
+            database.execSQL("CREATE INDEX IF NOT EXISTS index_recurrence_rules_eventId ON recurrence_rules (eventId)")
+            database.execSQL("CREATE INDEX IF NOT EXISTS index_recurrence_rules_nextOccurrenceDate ON recurrence_rules (nextOccurrenceDate)")
+        }
+    }
+    
+    /**
      * Get all migrations as an array
      */
     fun getAllMigrations(): Array<Migration> {
-        return arrayOf(MIGRATION_1_2)
+        return arrayOf(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
     }
 }

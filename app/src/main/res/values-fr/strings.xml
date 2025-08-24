@@ -29,6 +29,7 @@
     
     <!-- Time Units -->
     <string name="expired">Expiré</string>
+    <string name="event_completed">Événement Terminé !</string>
     <string name="today">Aujourd\'hui!</string>
     <string name="day">jour</string>
     <string name="days">jours</string>
@@ -83,6 +84,23 @@
     <string name="language_change_confirm">Changer la langue de l\'application en %1$s?</string>
     <string name="language_rtl_warning">Cette langue utilise une direction de texte de droite à gauche.</string>
     <string name="language_selection_info">Choisissez votre langue préférée. L\'application se mettra immédiatement à jour pour afficher dans la langue sélectionnée.</string>
+    <string name="language_restart_required">L\'application redémarrera pour appliquer les changements de langue</string>
+    
+    <!-- Language Names -->
+    <string name="language_english">English</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_french">Français</string>
+    <string name="language_german">Deutsch</string>
+    <string name="language_portuguese">Português</string>
+    <string name="language_italian">Italiano</string>
+    <string name="language_dutch">Nederlands</string>
+    <string name="language_russian">Русский</string>
+    <string name="language_chinese_simplified">简体中文</string>
+    <string name="language_chinese_traditional">繁體中文</string>
+    <string name="language_japanese">日本語</string>
+    <string name="language_korean">한국어</string>
+    <string name="language_arabic">العربية</string>
+    <string name="language_hindi">हिन्दी</string>
     
     <!-- Notifications Settings -->
     <string name="notification_settings">Paramètres de Notification</string>
@@ -107,6 +125,14 @@
     <string name="high_contrast">Contraste Élevé</string>
     <string name="reduce_motion">Réduire le Mouvement</string>
     <string name="screen_reader_optimized">Optimisé pour Lecteur d\'Écran</string>
+    
+    <!-- Event Creation -->
+    <string name="event_name_label">Nom de l\'Événement</string>
+    <string name="event_description_label">Description (Facultatif)</string>
+    
+    <!-- Service Messages -->
+    <string name="event_reached_target">%1$s a atteint son heure cible</string>
+    <string name="countdown_notification_title">Compte à Rebours CountJoy</string>
     
     <!-- Plurals -->
     <plurals name="days_count">

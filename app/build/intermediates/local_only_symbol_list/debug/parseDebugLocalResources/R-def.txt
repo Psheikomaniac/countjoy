@@ -120,3 +120,4 @@ string years
 style Theme.CountJoy
 xml backup_rules
 xml data_extraction_rules
+xml file_paths

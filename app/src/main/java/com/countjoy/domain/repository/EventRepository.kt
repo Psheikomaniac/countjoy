@@ -23,6 +23,11 @@ interface EventRepository {
     suspend fun getEventById(id: Long): CountdownEvent?
     
     /**
+     * Get a single event by string ID
+     */
+    suspend fun getEvent(id: String): CountdownEvent?
+    
+    /**
      * Create a new event
      */
     suspend fun createEvent(event: CountdownEvent): Long

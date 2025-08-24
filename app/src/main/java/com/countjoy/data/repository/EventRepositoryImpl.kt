@@ -49,4 +49,13 @@ class EventRepositoryImpl @Inject constructor(
     override suspend fun updateEventActiveStatus(id: Long, isActive: Boolean) {
         eventDao.updateEventActiveStatus(id, isActive)
     }
+    
+    override suspend fun getEvent(id: String): CountdownEvent? {
+        return try {
+            val longId = id.toLongOrNull() ?: return null
+            getEventById(longId)
+        } catch (e: Exception) {
+            null
+        }
+    }
 }
