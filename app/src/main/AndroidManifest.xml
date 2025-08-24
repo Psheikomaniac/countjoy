@@ -62,6 +62,19 @@
             </intent-filter>
         </receiver>
         
+        <!-- Notification Action Receiver -->
+        <receiver
+            android:name=".receiver.NotificationActionReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.countjoy.action.SNOOZE" />
+                <action android:name="com.countjoy.action.SHARE" />
+                <action android:name="com.countjoy.action.QUICK_VIEW" />
+                <action android:name="com.countjoy.action.MARK_SEEN" />
+            </intent-filter>
+        </receiver>
+        
         <!-- File Provider for sharing -->
         <provider
             android:name="androidx.core.content.FileProvider"
