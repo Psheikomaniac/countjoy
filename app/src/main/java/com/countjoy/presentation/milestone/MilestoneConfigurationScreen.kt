@@ -16,7 +16,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Schedule
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -159,7 +159,7 @@ fun MilestoneConfigurationScreen(
                 item {
                     MilestoneCategoryHeader(
                         title = "Time-based Milestones",
-                        icon = Icons.Default.Schedule
+                        icon = Icons.Default.DateRange
                     )
                 }
                 

@@ -10,6 +10,7 @@ import androidx.navigation.navArgument
 import androidx.navigation.NavType
 import com.countjoy.presentation.countdown.CountdownScreen
 import com.countjoy.presentation.event.EventInputScreen
+import com.countjoy.presentation.eventlist.EventListScreen
 import com.countjoy.presentation.settings.LanguagePickerScreen
 import com.countjoy.presentation.settings.SettingsScreen
 import com.countjoy.presentation.settings.AccessibilitySettingsScreen
@@ -19,6 +20,7 @@ import com.countjoy.presentation.settings.AccessibilitySettingsScreen
  */
 sealed class Screen(val route: String) {
     object Countdown : Screen("countdown")
+    object EventList : Screen("event_list")
     object EventInput : Screen("event_input/{eventId}") {
         fun createRoute(eventId: Long? = null): String {
             return if (eventId != null) {
@@ -56,6 +58,24 @@ fun CountJoyNavHost(
                 },
                 onNavigateToSettings = {
                     navController.navigate(Screen.Settings.route)
+                },
+                onNavigateToEventList = {
+                    navController.navigate(Screen.EventList.route)
+                }
+            )
+        }
+        
+        // Event List Screen - Display all events
+        composable(Screen.EventList.route) {
+            EventListScreen(
+                onNavigateToEventDetail = { eventId ->
+                    navController.navigate(Screen.EventInput.createRoute(eventId))
+                },
+                onNavigateToCreateEvent = {
+                    navController.navigate(Screen.EventInput.createRoute(null))
+                },
+                onNavigateBack = {
+                    navController.popBackStack()
                 }
             )
         }

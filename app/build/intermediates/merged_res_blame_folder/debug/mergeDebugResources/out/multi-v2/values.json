@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.countjoy.app-mergeDebugResources-65:/values/values.xml",
+            "outputFile": "com.countjoy.app-mergeDebugResources-66:/values/values.xml",
             "map": [
                 {
                     "source": "/Users/private/.gradle/caches/8.13/transforms/9f8c14c6fc15748a36acbb7e7afb6968/transformed/customview-poolingcontainer-1.0.0/res/values/values.xml",

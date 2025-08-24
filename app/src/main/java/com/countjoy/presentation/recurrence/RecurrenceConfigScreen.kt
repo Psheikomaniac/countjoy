@@ -228,6 +228,7 @@ fun RecurrenceConfigScreen(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecurrenceTemplateCard(
     template: RecurrenceTemplate,
@@ -333,6 +334,7 @@ fun RecurrencePatternSelector(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DayOfWeekSelector(
     selectedDays: Set<DayOfWeek>,

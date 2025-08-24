@@ -1,16 +1,22 @@
 package com.countjoy;
 
+import androidx.hilt.work.HiltWrapper_WorkerFactoryModule;
 import com.countjoy.di.AppModule;
 import com.countjoy.di.CoroutineModule;
 import com.countjoy.di.DatabaseModule;
 import com.countjoy.di.RepositoryModule;
 import com.countjoy.di.UseCaseModule;
+import com.countjoy.presentation.analytics.AnalyticsViewModel_HiltModules;
 import com.countjoy.presentation.countdown.CountdownViewModel_HiltModules;
 import com.countjoy.presentation.event.EventInputViewModel_HiltModules;
+import com.countjoy.presentation.eventlist.EventListViewModel_HiltModules;
+import com.countjoy.presentation.milestone.MilestoneViewModel_HiltModules;
 import com.countjoy.presentation.settings.AccessibilitySettingsViewModel_HiltModules;
 import com.countjoy.presentation.settings.LanguagePickerViewModel_HiltModules;
 import com.countjoy.presentation.settings.SettingsViewModel_HiltModules;
+import com.countjoy.presentation.settings.SoundHapticSettingsViewModel_HiltModules;
 import com.countjoy.service.CountdownService_GeneratedInjector;
+import com.countjoy.worker.MilestoneCheckWorker_HiltModule;
 import dagger.Binds;
 import dagger.Component;
 import dagger.Module;
@@ -141,6 +147,8 @@ public final class CountJoyApplication_HiltComponents {
           ServiceCBuilderModule.class,
           DatabaseModule.class,
           HiltWrapper_FragmentGetContextFix_FragmentGetContextFixModule.class,
+          HiltWrapper_WorkerFactoryModule.class,
+          MilestoneCheckWorker_HiltModule.class,
           RepositoryModule.class
       }
   )
@@ -166,13 +174,17 @@ public final class CountJoyApplication_HiltComponents {
   @Subcomponent(
       modules = {
           AccessibilitySettingsViewModel_HiltModules.KeyModule.class,
+          AnalyticsViewModel_HiltModules.KeyModule.class,
           ActivityCBuilderModule.class,
           ViewModelCBuilderModule.class,
           CountdownViewModel_HiltModules.KeyModule.class,
           EventInputViewModel_HiltModules.KeyModule.class,
+          EventListViewModel_HiltModules.KeyModule.class,
           HiltWrapper_ActivityRetainedComponentManager_LifecycleModule.class,
           LanguagePickerViewModel_HiltModules.KeyModule.class,
-          SettingsViewModel_HiltModules.KeyModule.class
+          MilestoneViewModel_HiltModules.KeyModule.class,
+          SettingsViewModel_HiltModules.KeyModule.class,
+          SoundHapticSettingsViewModel_HiltModules.KeyModule.class
       }
   )
   @ActivityRetainedScoped
@@ -209,11 +221,15 @@ public final class CountJoyApplication_HiltComponents {
   @Subcomponent(
       modules = {
           AccessibilitySettingsViewModel_HiltModules.BindsModule.class,
+          AnalyticsViewModel_HiltModules.BindsModule.class,
           CountdownViewModel_HiltModules.BindsModule.class,
           EventInputViewModel_HiltModules.BindsModule.class,
+          EventListViewModel_HiltModules.BindsModule.class,
           HiltWrapper_HiltViewModelFactory_ViewModelModule.class,
           LanguagePickerViewModel_HiltModules.BindsModule.class,
+          MilestoneViewModel_HiltModules.BindsModule.class,
           SettingsViewModel_HiltModules.BindsModule.class,
+          SoundHapticSettingsViewModel_HiltModules.BindsModule.class,
           UseCaseModule.class
       }
   )

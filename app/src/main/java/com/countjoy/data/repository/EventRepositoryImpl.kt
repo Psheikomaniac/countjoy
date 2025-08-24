@@ -42,6 +42,10 @@ class EventRepositoryImpl @Inject constructor(
         eventDao.updateEvent(event.toEntity())
     }
     
+    override suspend fun deleteEvent(event: CountdownEvent) {
+        eventDao.deleteEvent(event.toEntity())
+    }
+    
     override suspend fun deleteEvent(id: Long) {
         eventDao.deleteEventById(id)
     }
@@ -57,5 +61,67 @@ class EventRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             null
         }
+    }
+    
+    override fun getAllCategories(): Flow<List<String>> {
+        return eventDao.getAllCategories()
+    }
+    
+    override fun getEventsByCategory(category: String): Flow<List<CountdownEvent>> {
+        return eventDao.getEventsByCategory(category).map { entities ->
+            entities.map { it.toDomain() }
+        }
+    }
+    
+    override fun getEventsByPriority(priority: Int): Flow<List<CountdownEvent>> {
+        return eventDao.getEventsByPriority(priority).map { entities ->
+            entities.map { it.toDomain() }
+        }
+    }
+    
+    override fun searchAndFilterEvents(
+        searchQuery: String?,
+        category: String?,
+        priority: Int?,
+        sortBy: String
+    ): Flow<List<CountdownEvent>> {
+        return eventDao.searchAndFilterEvents(searchQuery, category, priority, sortBy)
+            .map { entities ->
+                entities.map { it.toDomain() }
+            }
+    }
+    
+    override fun getEventsByDateRange(startDate: Long, endDate: Long): Flow<List<CountdownEvent>> {
+        return eventDao.getEventsByDateRange(startDate, endDate).map { entities ->
+            entities.map { it.toDomain() }
+        }
+    }
+    
+    override fun getPastEvents(currentTime: Long): Flow<List<CountdownEvent>> {
+        return eventDao.getPastEvents(currentTime).map { entities ->
+            entities.map { it.toDomain() }
+        }
+    }
+    
+    override fun getUpcomingEvents(currentTime: Long, limit: Int): Flow<List<CountdownEvent>> {
+        return eventDao.getUpcomingEvents(currentTime, limit).map { entities ->
+            entities.map { it.toDomain() }
+        }
+    }
+    
+    override suspend fun getActiveEventCount(): Int {
+        return eventDao.getActiveEventCount()
+    }
+    
+    override suspend fun getEventCountByCategory(category: String): Int {
+        return eventDao.getEventCountByCategory(category)
+    }
+    
+    override suspend fun duplicateEvent(eventId: Long): Long {
+        return eventDao.duplicateEvent(eventId)
+    }
+    
+    override suspend fun updateEventPriority(id: Long, priority: Int) {
+        eventDao.updateEventPriority(id, priority)
     }
 }

@@ -3,7 +3,7 @@ package com.countjoy.service
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.material3.dynamiccolor.DynamicColors
+// Material You Dynamic Colors
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import com.countjoy.domain.model.CustomTheme
@@ -37,12 +37,12 @@ class MaterialYouService @Inject constructor(
                 tertiaryColor = Color(context.getColor(android.R.color.system_accent3_500)),
                 backgroundColor = Color(context.getColor(android.R.color.system_neutral1_50)),
                 surfaceColor = Color(context.getColor(android.R.color.system_neutral1_100)),
-                errorColor = Color(context.getColor(android.R.color.system_error_500)),
-                onPrimaryColor = Color(context.getColor(android.R.color.system_accent1_0)),
-                onSecondaryColor = Color(context.getColor(android.R.color.system_accent2_0)),
+                errorColor = Color(context.getColor(android.R.color.holo_red_dark)),
+                onPrimaryColor = Color(context.getColor(android.R.color.white)),
+                onSecondaryColor = Color(context.getColor(android.R.color.white)),
                 onBackgroundColor = Color(context.getColor(android.R.color.system_neutral1_900)),
                 onSurfaceColor = Color(context.getColor(android.R.color.system_neutral1_900)),
-                onErrorColor = Color(context.getColor(android.R.color.system_error_0)),
+                onErrorColor = Color(context.getColor(android.R.color.white)),
                 isDark = false,
                 isMaterialYou = true
             )
@@ -64,12 +64,12 @@ class MaterialYouService @Inject constructor(
                 tertiaryColor = Color(context.getColor(android.R.color.system_accent3_200)),
                 backgroundColor = Color(context.getColor(android.R.color.system_neutral1_900)),
                 surfaceColor = Color(context.getColor(android.R.color.system_neutral1_800)),
-                errorColor = Color(context.getColor(android.R.color.system_error_200)),
+                errorColor = Color(context.getColor(android.R.color.holo_red_light)),
                 onPrimaryColor = Color(context.getColor(android.R.color.system_accent1_800)),
                 onSecondaryColor = Color(context.getColor(android.R.color.system_accent2_800)),
                 onBackgroundColor = Color(context.getColor(android.R.color.system_neutral1_50)),
                 onSurfaceColor = Color(context.getColor(android.R.color.system_neutral1_50)),
-                onErrorColor = Color(context.getColor(android.R.color.system_error_800)),
+                onErrorColor = Color(context.getColor(android.R.color.white)),
                 isDark = true,
                 isMaterialYou = true
             )

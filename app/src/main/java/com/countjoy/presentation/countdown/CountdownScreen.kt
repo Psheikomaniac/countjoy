@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -25,6 +26,7 @@ import java.time.format.DateTimeFormatter
 fun CountdownScreen(
     onNavigateToEventInput: (Long?) -> Unit,
     onNavigateToSettings: () -> Unit,
+    onNavigateToEventList: () -> Unit = {},
     viewModel: CountdownViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -34,6 +36,13 @@ fun CountdownScreen(
             TopAppBar(
                 title = { Text(stringResource(id = R.string.app_name)) },
                 actions = {
+                    IconButton(onClick = onNavigateToEventList) {
+                        Icon(
+                            imageVector = Icons.Default.List,
+                            contentDescription = "View all events",
+                            tint = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    }
                     IconButton(onClick = onNavigateToSettings) {
                         Icon(
                             imageVector = Icons.Default.Settings,

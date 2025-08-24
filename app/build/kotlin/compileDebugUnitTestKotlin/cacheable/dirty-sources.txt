@@ -1,0 +1,4 @@
+/Users/private/projects/countjoy/app/src/test/java/com/countjoy/domain/validation/EventValidatorTest.kt
+/Users/private/projects/countjoy/app/src/test/java/com/countjoy/domain/model/CountdownEventTest.kt
+/Users/private/projects/countjoy/app/src/test/java/com/countjoy/data/repository/EventRepositoryImplTest.kt
+/Users/private/projects/countjoy/app/src/test/java/com/countjoy/domain/model/CountdownTimeTest.kt

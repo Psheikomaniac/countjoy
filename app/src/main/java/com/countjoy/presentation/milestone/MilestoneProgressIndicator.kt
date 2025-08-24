@@ -13,8 +13,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.filled.Schedule
-import androidx.compose.material.icons.filled.ShowChart
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -302,8 +302,8 @@ private fun UpcomingMilestoneCard(
         ) {
             Icon(
                 imageVector = when (milestone.type) {
-                    MilestoneType.PERCENTAGE_BASED -> Icons.Default.ShowChart
-                    MilestoneType.TIME_BASED -> Icons.Default.Schedule
+                    MilestoneType.PERCENTAGE_BASED -> Icons.Default.CheckCircle
+                    MilestoneType.TIME_BASED -> Icons.Default.DateRange
                     MilestoneType.CUSTOM -> Icons.Default.Star
                 },
                 contentDescription = null,

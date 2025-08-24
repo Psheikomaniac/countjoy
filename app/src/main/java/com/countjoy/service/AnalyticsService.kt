@@ -48,13 +48,13 @@ class AnalyticsService @Inject constructor(
         val eventsByCategory = filteredEvents.groupingBy { it.category }.eachCount()
         val eventsByPriority = filteredEvents.groupingBy { it.priority }.eachCount()
         
-        val creationTrend = calculateTrend(filteredEvents) { it.createdAt }
+        val creationTrend = calculateTrend(filteredEvents) { it.createdAt.atZone(ZoneId.systemDefault()).toInstant() }
         val completionTrend = calculateTrend(
             filteredEvents.filter { !it.isActive }
-        ) { it.targetDateTime }
+        ) { it.targetDateTime.atZone(ZoneId.systemDefault()).toInstant() }
         
         val upcomingEvents = filteredEvents
-            .filter { it.isActive && it.targetDateTime.isAfter(Instant.now()) }
+            .filter { it.isActive && it.targetDateTime.isAfter(LocalDateTime.now()) }
             .sortedBy { it.targetDateTime }
             .take(5)
         
@@ -215,14 +215,14 @@ class AnalyticsService @Inject constructor(
         events: List<CountdownEvent>,
         timeRange: TimeRange
     ): List<CountdownEvent> {
-        val now = Instant.now()
+        val now = LocalDateTime.now()
         val startDate = when (timeRange) {
             TimeRange.TODAY -> now.minus(1, ChronoUnit.DAYS)
             TimeRange.THIS_WEEK -> now.minus(7, ChronoUnit.DAYS)
             TimeRange.THIS_MONTH -> now.minus(30, ChronoUnit.DAYS)
             TimeRange.LAST_30_DAYS -> now.minus(30, ChronoUnit.DAYS)
             TimeRange.THIS_YEAR -> now.minus(365, ChronoUnit.DAYS)
-            TimeRange.ALL_TIME -> Instant.EPOCH
+            TimeRange.ALL_TIME -> LocalDateTime.ofInstant(Instant.EPOCH, ZoneId.systemDefault())
         }
         
         return events.filter { it.createdAt.isAfter(startDate) }
@@ -249,7 +249,7 @@ class AnalyticsService @Inject constructor(
     private fun calculateStreakDays(events: List<CountdownEvent>): Int {
         val today = LocalDate.now()
         val eventDates = events.map {
-            LocalDate.ofInstant(it.createdAt, ZoneId.systemDefault())
+            it.createdAt.toLocalDate()
         }.toSet()
         
         var streak = 0

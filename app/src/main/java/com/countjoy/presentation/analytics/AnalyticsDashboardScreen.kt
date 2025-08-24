@@ -13,7 +13,7 @@ import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Schedule
+// Using DateRange icon instead of Schedule
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Done
@@ -155,6 +155,7 @@ fun TimeRangeSelector(
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(TimeRange.values().toList()) { range ->
+            @OptIn(ExperimentalMaterial3Api::class)
             FilterChip(
                 selected = selectedRange == range,
                 onClick = { onRangeSelected(range) },
@@ -457,7 +458,7 @@ fun ProductivityInsightsCard(insights: ProductivityInsights) {
             )
             
             InsightRow(
-                icon = Icons.Default.Schedule,
+                icon = Icons.Default.DateRange,
                 label = "Peak Hour",
                 value = "${insights.mostProductiveHour}:00"
             )

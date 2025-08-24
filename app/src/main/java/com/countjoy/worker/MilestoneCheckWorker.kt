@@ -63,7 +63,7 @@ class MilestoneCheckWorker @AssistedInject constructor(
             
             // Check milestones for each event
             events.forEach { event ->
-                val achievedMilestones = checkMilestonesUseCase(event.id)
+                val achievedMilestones = checkMilestonesUseCase(event.id.toString())
                 
                 // Send notifications for achieved milestones
                 achievedMilestones.forEach { achievement ->

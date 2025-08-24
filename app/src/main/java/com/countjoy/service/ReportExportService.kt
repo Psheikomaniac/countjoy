@@ -180,7 +180,7 @@ class ReportExportService(private val context: Context) {
         }
         
         // Simple JSON conversion
-        return org.json.JSONObject(jsonMap).toString(2)
+        return org.json.JSONObject(jsonMap as Map<*, *>).toString(2)
     }
     
     private fun buildHtmlReport(report: AnalyticsReport, options: ExportOptions): String {

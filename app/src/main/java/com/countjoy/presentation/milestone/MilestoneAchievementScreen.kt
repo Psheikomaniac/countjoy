@@ -12,7 +12,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Schedule
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -183,7 +183,7 @@ private fun AchievementStatisticsCard(achievements: List<Milestone>) {
                 StatisticItem(
                     value = achievements.count { it.type == MilestoneType.TIME_BASED }.toString(),
                     label = "Time",
-                    icon = Icons.Default.Schedule
+                    icon = Icons.Default.DateRange
                 )
                 
                 StatisticItem(
@@ -277,7 +277,7 @@ private fun AchievementCard(
                         Icon(
                             imageVector = when (milestone.type) {
                                 MilestoneType.PERCENTAGE_BASED -> Icons.Default.Check
-                                MilestoneType.TIME_BASED -> Icons.Default.Schedule
+                                MilestoneType.TIME_BASED -> Icons.Default.DateRange
                                 MilestoneType.CUSTOM -> Icons.Default.Star
                             },
                             contentDescription = null,

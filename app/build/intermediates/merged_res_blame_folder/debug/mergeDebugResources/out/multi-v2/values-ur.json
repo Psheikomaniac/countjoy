@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.countjoy.app-mergeDebugResources-65:/values-ur/values-ur.xml",
+            "outputFile": "com.countjoy.app-mergeDebugResources-66:/values-ur/values-ur.xml",
             "map": [
                 {
                     "source": "/Users/private/.gradle/caches/8.13/transforms/b0403cc12f832c5900662973b0842019/transformed/core-1.12.0/res/values-ur/values-ur.xml",

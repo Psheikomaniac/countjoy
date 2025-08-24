@@ -5,14 +5,17 @@ import android.app.Service;
 import android.content.Context;
 import android.view.View;
 import androidx.fragment.app.Fragment;
+import androidx.hilt.work.HiltWrapper_WorkerFactoryModule;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 import com.countjoy.core.accessibility.AccessibilityManager;
 import com.countjoy.core.locale.LocaleManager;
 import com.countjoy.data.local.CountJoyDatabase;
 import com.countjoy.data.local.dao.CountdownEventDao;
+import com.countjoy.data.local.dao.MilestoneDao;
 import com.countjoy.data.local.preferences.SharedPreferencesManager;
 import com.countjoy.data.repository.EventRepositoryImpl;
+import com.countjoy.data.repository.MilestoneRepositoryImpl;
 import com.countjoy.di.AppModule;
 import com.countjoy.di.AppModule_ProvideAccessibilityManagerFactory;
 import com.countjoy.di.AppModule_ProvideApplicationContextFactory;
@@ -20,28 +23,42 @@ import com.countjoy.di.CoroutineModule;
 import com.countjoy.di.DatabaseModule;
 import com.countjoy.di.DatabaseModule_ProvideCountJoyDatabaseFactory;
 import com.countjoy.di.DatabaseModule_ProvideCountdownEventDaoFactory;
+import com.countjoy.di.DatabaseModule_ProvideMilestoneDaoFactory;
 import com.countjoy.di.UseCaseModule_ProvideCalculateCountdownUseCaseFactory;
 import com.countjoy.di.UseCaseModule_ProvideCreateEventUseCaseFactory;
 import com.countjoy.di.UseCaseModule_ProvideDeleteEventUseCaseFactory;
 import com.countjoy.di.UseCaseModule_ProvideGetEventUseCaseFactory;
 import com.countjoy.di.UseCaseModule_ProvideUpdateEventUseCaseFactory;
+import com.countjoy.domain.repository.MilestoneRepository;
 import com.countjoy.domain.usecase.CalculateCountdownUseCase;
 import com.countjoy.domain.usecase.CreateEventUseCase;
 import com.countjoy.domain.usecase.DeleteEventUseCase;
 import com.countjoy.domain.usecase.GetEventUseCase;
 import com.countjoy.domain.usecase.UpdateEventUseCase;
+import com.countjoy.domain.usecase.milestone.CheckMilestonesUseCase;
+import com.countjoy.domain.usecase.milestone.CreateMilestonesUseCase;
+import com.countjoy.presentation.analytics.AnalyticsViewModel;
+import com.countjoy.presentation.analytics.AnalyticsViewModel_HiltModules_KeyModule_ProvideFactory;
 import com.countjoy.presentation.countdown.CountdownViewModel;
 import com.countjoy.presentation.countdown.CountdownViewModel_HiltModules_KeyModule_ProvideFactory;
 import com.countjoy.presentation.event.EventInputViewModel;
 import com.countjoy.presentation.event.EventInputViewModel_HiltModules_KeyModule_ProvideFactory;
+import com.countjoy.presentation.eventlist.EventListViewModel;
+import com.countjoy.presentation.eventlist.EventListViewModel_HiltModules_KeyModule_ProvideFactory;
+import com.countjoy.presentation.milestone.MilestoneViewModel;
+import com.countjoy.presentation.milestone.MilestoneViewModel_HiltModules_KeyModule_ProvideFactory;
 import com.countjoy.presentation.settings.AccessibilitySettingsViewModel;
 import com.countjoy.presentation.settings.AccessibilitySettingsViewModel_HiltModules_KeyModule_ProvideFactory;
 import com.countjoy.presentation.settings.LanguagePickerViewModel;
 import com.countjoy.presentation.settings.LanguagePickerViewModel_HiltModules_KeyModule_ProvideFactory;
 import com.countjoy.presentation.settings.SettingsViewModel;
 import com.countjoy.presentation.settings.SettingsViewModel_HiltModules_KeyModule_ProvideFactory;
+import com.countjoy.presentation.settings.SoundHapticSettingsViewModel;
+import com.countjoy.presentation.settings.SoundHapticSettingsViewModel_HiltModules_KeyModule_ProvideFactory;
+import com.countjoy.service.AnalyticsService;
 import com.countjoy.service.CountdownService;
 import com.countjoy.service.CountdownService_MembersInjector;
+import com.countjoy.service.SoundHapticService;
 import dagger.hilt.android.ActivityRetainedLifecycle;
 import dagger.hilt.android.ViewModelLifecycle;
 import dagger.hilt.android.flags.HiltWrapper_FragmentGetContextFix_FragmentGetContextFixModule;
@@ -132,6 +149,16 @@ public final class DaggerCountJoyApplication_HiltComponents_SingletonC {
     public Builder hiltWrapper_FragmentGetContextFix_FragmentGetContextFixModule(
         HiltWrapper_FragmentGetContextFix_FragmentGetContextFixModule hiltWrapper_FragmentGetContextFix_FragmentGetContextFixModule) {
       Preconditions.checkNotNull(hiltWrapper_FragmentGetContextFix_FragmentGetContextFixModule);
+      return this;
+    }
+
+    /**
+     * @deprecated This module is declared, but an instance is not used in the component. This method is a no-op. For more, see https://dagger.dev/unused-modules.
+     */
+    @Deprecated
+    public Builder hiltWrapper_WorkerFactoryModule(
+        HiltWrapper_WorkerFactoryModule hiltWrapper_WorkerFactoryModule) {
+      Preconditions.checkNotNull(hiltWrapper_WorkerFactoryModule);
       return this;
     }
 
@@ -427,7 +454,7 @@ public final class DaggerCountJoyApplication_HiltComponents_SingletonC {
 
     @Override
     public Set<String> getViewModelKeys() {
-      return SetBuilder.<String>newSetBuilder(5).add(AccessibilitySettingsViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(CountdownViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(EventInputViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(LanguagePickerViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(SettingsViewModel_HiltModules_KeyModule_ProvideFactory.provide()).build();
+      return SetBuilder.<String>newSetBuilder(9).add(AccessibilitySettingsViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(AnalyticsViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(CountdownViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(EventInputViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(EventListViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(LanguagePickerViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(MilestoneViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(SettingsViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(SoundHapticSettingsViewModel_HiltModules_KeyModule_ProvideFactory.provide()).build();
     }
 
     @Override
@@ -464,6 +491,8 @@ public final class DaggerCountJoyApplication_HiltComponents_SingletonC {
 
     private Provider<AccessibilitySettingsViewModel> accessibilitySettingsViewModelProvider;
 
+    private Provider<AnalyticsViewModel> analyticsViewModelProvider;
+
     private Provider<GetEventUseCase> provideGetEventUseCaseProvider;
 
     private Provider<DeleteEventUseCase> provideDeleteEventUseCaseProvider;
@@ -478,9 +507,15 @@ public final class DaggerCountJoyApplication_HiltComponents_SingletonC {
 
     private Provider<EventInputViewModel> eventInputViewModelProvider;
 
+    private Provider<EventListViewModel> eventListViewModelProvider;
+
     private Provider<LanguagePickerViewModel> languagePickerViewModelProvider;
 
+    private Provider<MilestoneViewModel> milestoneViewModelProvider;
+
     private Provider<SettingsViewModel> settingsViewModelProvider;
+
+    private Provider<SoundHapticSettingsViewModel> soundHapticSettingsViewModelProvider;
 
     private ViewModelCImpl(SingletonCImpl singletonCImpl,
         ActivityRetainedCImpl activityRetainedCImpl, SavedStateHandle savedStateHandleParam,
@@ -492,24 +527,36 @@ public final class DaggerCountJoyApplication_HiltComponents_SingletonC {
 
     }
 
+    private CreateMilestonesUseCase createMilestonesUseCase() {
+      return new CreateMilestonesUseCase(singletonCImpl.bindMilestoneRepositoryProvider.get());
+    }
+
+    private CheckMilestonesUseCase checkMilestonesUseCase() {
+      return new CheckMilestonesUseCase(singletonCImpl.bindMilestoneRepositoryProvider.get(), singletonCImpl.eventRepositoryImplProvider.get());
+    }
+
     @SuppressWarnings("unchecked")
     private void initialize(final SavedStateHandle savedStateHandleParam,
         final ViewModelLifecycle viewModelLifecycleParam) {
       this.accessibilitySettingsViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 0);
-      this.provideGetEventUseCaseProvider = DoubleCheck.provider(new SwitchingProvider<GetEventUseCase>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 2));
-      this.provideDeleteEventUseCaseProvider = DoubleCheck.provider(new SwitchingProvider<DeleteEventUseCase>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 3));
-      this.provideUpdateEventUseCaseProvider = DoubleCheck.provider(new SwitchingProvider<UpdateEventUseCase>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 4));
-      this.provideCalculateCountdownUseCaseProvider = DoubleCheck.provider(new SwitchingProvider<CalculateCountdownUseCase>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 5));
-      this.countdownViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 1);
-      this.provideCreateEventUseCaseProvider = DoubleCheck.provider(new SwitchingProvider<CreateEventUseCase>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 7));
-      this.eventInputViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 6);
-      this.languagePickerViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 8);
-      this.settingsViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 9);
+      this.analyticsViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 1);
+      this.provideGetEventUseCaseProvider = DoubleCheck.provider(new SwitchingProvider<GetEventUseCase>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 3));
+      this.provideDeleteEventUseCaseProvider = DoubleCheck.provider(new SwitchingProvider<DeleteEventUseCase>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 4));
+      this.provideUpdateEventUseCaseProvider = DoubleCheck.provider(new SwitchingProvider<UpdateEventUseCase>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 5));
+      this.provideCalculateCountdownUseCaseProvider = DoubleCheck.provider(new SwitchingProvider<CalculateCountdownUseCase>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 6));
+      this.countdownViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 2);
+      this.provideCreateEventUseCaseProvider = DoubleCheck.provider(new SwitchingProvider<CreateEventUseCase>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 8));
+      this.eventInputViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 7);
+      this.eventListViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 9);
+      this.languagePickerViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 10);
+      this.milestoneViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 11);
+      this.settingsViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 12);
+      this.soundHapticSettingsViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 13);
     }
 
     @Override
     public Map<String, Provider<ViewModel>> getHiltViewModelMap() {
-      return MapBuilder.<String, Provider<ViewModel>>newMapBuilder(5).put("com.countjoy.presentation.settings.AccessibilitySettingsViewModel", ((Provider) accessibilitySettingsViewModelProvider)).put("com.countjoy.presentation.countdown.CountdownViewModel", ((Provider) countdownViewModelProvider)).put("com.countjoy.presentation.event.EventInputViewModel", ((Provider) eventInputViewModelProvider)).put("com.countjoy.presentation.settings.LanguagePickerViewModel", ((Provider) languagePickerViewModelProvider)).put("com.countjoy.presentation.settings.SettingsViewModel", ((Provider) settingsViewModelProvider)).build();
+      return MapBuilder.<String, Provider<ViewModel>>newMapBuilder(9).put("com.countjoy.presentation.settings.AccessibilitySettingsViewModel", ((Provider) accessibilitySettingsViewModelProvider)).put("com.countjoy.presentation.analytics.AnalyticsViewModel", ((Provider) analyticsViewModelProvider)).put("com.countjoy.presentation.countdown.CountdownViewModel", ((Provider) countdownViewModelProvider)).put("com.countjoy.presentation.event.EventInputViewModel", ((Provider) eventInputViewModelProvider)).put("com.countjoy.presentation.eventlist.EventListViewModel", ((Provider) eventListViewModelProvider)).put("com.countjoy.presentation.settings.LanguagePickerViewModel", ((Provider) languagePickerViewModelProvider)).put("com.countjoy.presentation.milestone.MilestoneViewModel", ((Provider) milestoneViewModelProvider)).put("com.countjoy.presentation.settings.SettingsViewModel", ((Provider) settingsViewModelProvider)).put("com.countjoy.presentation.settings.SoundHapticSettingsViewModel", ((Provider) soundHapticSettingsViewModelProvider)).build();
     }
 
     private static final class SwitchingProvider<T> implements Provider<T> {
@@ -536,32 +583,44 @@ public final class DaggerCountJoyApplication_HiltComponents_SingletonC {
           case 0: // com.countjoy.presentation.settings.AccessibilitySettingsViewModel 
           return (T) new AccessibilitySettingsViewModel(singletonCImpl.provideAccessibilityManagerProvider.get());
 
-          case 1: // com.countjoy.presentation.countdown.CountdownViewModel 
+          case 1: // com.countjoy.presentation.analytics.AnalyticsViewModel 
+          return (T) new AnalyticsViewModel(singletonCImpl.analyticsServiceProvider.get(), ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
+
+          case 2: // com.countjoy.presentation.countdown.CountdownViewModel 
           return (T) new CountdownViewModel(viewModelCImpl.provideGetEventUseCaseProvider.get(), viewModelCImpl.provideDeleteEventUseCaseProvider.get(), viewModelCImpl.provideUpdateEventUseCaseProvider.get(), viewModelCImpl.provideCalculateCountdownUseCaseProvider.get());
 
-          case 2: // com.countjoy.domain.usecase.GetEventUseCase 
+          case 3: // com.countjoy.domain.usecase.GetEventUseCase 
           return (T) UseCaseModule_ProvideGetEventUseCaseFactory.provideGetEventUseCase(singletonCImpl.eventRepositoryImplProvider.get());
 
-          case 3: // com.countjoy.domain.usecase.DeleteEventUseCase 
+          case 4: // com.countjoy.domain.usecase.DeleteEventUseCase 
           return (T) UseCaseModule_ProvideDeleteEventUseCaseFactory.provideDeleteEventUseCase(singletonCImpl.eventRepositoryImplProvider.get());
 
-          case 4: // com.countjoy.domain.usecase.UpdateEventUseCase 
+          case 5: // com.countjoy.domain.usecase.UpdateEventUseCase 
           return (T) UseCaseModule_ProvideUpdateEventUseCaseFactory.provideUpdateEventUseCase(singletonCImpl.eventRepositoryImplProvider.get());
 
-          case 5: // com.countjoy.domain.usecase.CalculateCountdownUseCase 
+          case 6: // com.countjoy.domain.usecase.CalculateCountdownUseCase 
           return (T) UseCaseModule_ProvideCalculateCountdownUseCaseFactory.provideCalculateCountdownUseCase();
 
-          case 6: // com.countjoy.presentation.event.EventInputViewModel 
+          case 7: // com.countjoy.presentation.event.EventInputViewModel 
           return (T) new EventInputViewModel(viewModelCImpl.savedStateHandle, viewModelCImpl.provideGetEventUseCaseProvider.get(), viewModelCImpl.provideCreateEventUseCaseProvider.get(), viewModelCImpl.provideUpdateEventUseCaseProvider.get());
 
-          case 7: // com.countjoy.domain.usecase.CreateEventUseCase 
+          case 8: // com.countjoy.domain.usecase.CreateEventUseCase 
           return (T) UseCaseModule_ProvideCreateEventUseCaseFactory.provideCreateEventUseCase(singletonCImpl.eventRepositoryImplProvider.get());
 
-          case 8: // com.countjoy.presentation.settings.LanguagePickerViewModel 
+          case 9: // com.countjoy.presentation.eventlist.EventListViewModel 
+          return (T) new EventListViewModel(singletonCImpl.eventRepositoryImplProvider.get());
+
+          case 10: // com.countjoy.presentation.settings.LanguagePickerViewModel 
           return (T) new LanguagePickerViewModel(singletonCImpl.localeManagerProvider.get());
 
-          case 9: // com.countjoy.presentation.settings.SettingsViewModel 
+          case 11: // com.countjoy.presentation.milestone.MilestoneViewModel 
+          return (T) new MilestoneViewModel(singletonCImpl.bindMilestoneRepositoryProvider.get(), viewModelCImpl.createMilestonesUseCase(), viewModelCImpl.checkMilestonesUseCase());
+
+          case 12: // com.countjoy.presentation.settings.SettingsViewModel 
           return (T) new SettingsViewModel(singletonCImpl.sharedPreferencesManagerProvider.get(), singletonCImpl.localeManagerProvider.get());
+
+          case 13: // com.countjoy.presentation.settings.SoundHapticSettingsViewModel 
+          return (T) new SoundHapticSettingsViewModel(singletonCImpl.sharedPreferencesManagerProvider.get(), singletonCImpl.soundHapticServiceProvider.get());
 
           default: throw new AssertionError(id);
         }
@@ -671,6 +730,16 @@ public final class DaggerCountJoyApplication_HiltComponents_SingletonC {
 
     private Provider<EventRepositoryImpl> eventRepositoryImplProvider;
 
+    private Provider<MilestoneDao> provideMilestoneDaoProvider;
+
+    private Provider<MilestoneRepositoryImpl> milestoneRepositoryImplProvider;
+
+    private Provider<MilestoneRepository> bindMilestoneRepositoryProvider;
+
+    private Provider<AnalyticsService> analyticsServiceProvider;
+
+    private Provider<SoundHapticService> soundHapticServiceProvider;
+
     private SingletonCImpl(ApplicationContextModule applicationContextModuleParam) {
       this.applicationContextModule = applicationContextModuleParam;
       initialize(applicationContextModuleParam);
@@ -683,9 +752,14 @@ public final class DaggerCountJoyApplication_HiltComponents_SingletonC {
       this.sharedPreferencesManagerProvider = DoubleCheck.provider(new SwitchingProvider<SharedPreferencesManager>(singletonCImpl, 2));
       this.localeManagerProvider = DoubleCheck.provider(new SwitchingProvider<LocaleManager>(singletonCImpl, 0));
       this.provideAccessibilityManagerProvider = DoubleCheck.provider(new SwitchingProvider<AccessibilityManager>(singletonCImpl, 3));
-      this.provideCountJoyDatabaseProvider = DoubleCheck.provider(new SwitchingProvider<CountJoyDatabase>(singletonCImpl, 6));
-      this.provideCountdownEventDaoProvider = DoubleCheck.provider(new SwitchingProvider<CountdownEventDao>(singletonCImpl, 5));
-      this.eventRepositoryImplProvider = DoubleCheck.provider(new SwitchingProvider<EventRepositoryImpl>(singletonCImpl, 4));
+      this.provideCountJoyDatabaseProvider = DoubleCheck.provider(new SwitchingProvider<CountJoyDatabase>(singletonCImpl, 7));
+      this.provideCountdownEventDaoProvider = DoubleCheck.provider(new SwitchingProvider<CountdownEventDao>(singletonCImpl, 6));
+      this.eventRepositoryImplProvider = DoubleCheck.provider(new SwitchingProvider<EventRepositoryImpl>(singletonCImpl, 5));
+      this.provideMilestoneDaoProvider = DoubleCheck.provider(new SwitchingProvider<MilestoneDao>(singletonCImpl, 9));
+      this.milestoneRepositoryImplProvider = new SwitchingProvider<>(singletonCImpl, 8);
+      this.bindMilestoneRepositoryProvider = DoubleCheck.provider((Provider) milestoneRepositoryImplProvider);
+      this.analyticsServiceProvider = DoubleCheck.provider(new SwitchingProvider<AnalyticsService>(singletonCImpl, 4));
+      this.soundHapticServiceProvider = DoubleCheck.provider(new SwitchingProvider<SoundHapticService>(singletonCImpl, 10));
     }
 
     @Override
@@ -739,14 +813,26 @@ public final class DaggerCountJoyApplication_HiltComponents_SingletonC {
           case 3: // com.countjoy.core.accessibility.AccessibilityManager 
           return (T) AppModule_ProvideAccessibilityManagerFactory.provideAccessibilityManager(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule), singletonCImpl.sharedPreferencesManagerProvider.get());
 
-          case 4: // com.countjoy.data.repository.EventRepositoryImpl 
+          case 4: // com.countjoy.service.AnalyticsService 
+          return (T) new AnalyticsService(singletonCImpl.eventRepositoryImplProvider.get(), singletonCImpl.bindMilestoneRepositoryProvider.get());
+
+          case 5: // com.countjoy.data.repository.EventRepositoryImpl 
           return (T) new EventRepositoryImpl(singletonCImpl.provideCountdownEventDaoProvider.get());
 
-          case 5: // com.countjoy.data.local.dao.CountdownEventDao 
+          case 6: // com.countjoy.data.local.dao.CountdownEventDao 
           return (T) DatabaseModule_ProvideCountdownEventDaoFactory.provideCountdownEventDao(singletonCImpl.provideCountJoyDatabaseProvider.get());
 
-          case 6: // com.countjoy.data.local.CountJoyDatabase 
+          case 7: // com.countjoy.data.local.CountJoyDatabase 
           return (T) DatabaseModule_ProvideCountJoyDatabaseFactory.provideCountJoyDatabase(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
+
+          case 8: // com.countjoy.data.repository.MilestoneRepositoryImpl 
+          return (T) new MilestoneRepositoryImpl(singletonCImpl.provideMilestoneDaoProvider.get());
+
+          case 9: // com.countjoy.data.local.dao.MilestoneDao 
+          return (T) DatabaseModule_ProvideMilestoneDaoFactory.provideMilestoneDao(singletonCImpl.provideCountJoyDatabaseProvider.get());
+
+          case 10: // com.countjoy.service.SoundHapticService 
+          return (T) new SoundHapticService(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
 
           default: throw new AssertionError(id);
         }

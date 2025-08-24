@@ -235,7 +235,8 @@ object MilestoneShareHelper {
                     appendLine("  ✓ ${milestone.title}")
                     appendLine("    ${milestone.message}")
                     milestone.achievedAt?.let {
-                        appendLine("    Achieved: ${it.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)}")
+                        val localDateTime = it.atZone(java.time.ZoneId.systemDefault()).toLocalDateTime()
+                        appendLine("    Achieved: ${localDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)}")
                     }
                     appendLine()
                 }

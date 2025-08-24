@@ -28,7 +28,7 @@ class RecurrenceGeneratorService @Inject constructor(
     ): CountdownEvent? {
         val nextOccurrences = recurrenceCalculator.calculateNextOccurrences(
             rule = recurrenceRule,
-            startDate = originalEvent.targetDateTime.atZone(ZoneId.systemDefault()).toLocalDateTime(),
+            startDate = originalEvent.targetDateTime,
             count = 1
         )
         
@@ -41,10 +41,10 @@ class RecurrenceGeneratorService @Inject constructor(
         
         // Create new event based on the original
         val newEvent = originalEvent.copy(
-            id = UUID.randomUUID().toString(),
-            targetDateTime = nextInstant,
-            createdAt = java.time.Instant.now(),
-            updatedAt = java.time.Instant.now()
+            id = System.currentTimeMillis(),
+            targetDateTime = nextDateTime,
+            createdAt = LocalDateTime.now(),
+            updatedAt = LocalDateTime.now()
         )
         
         // Save the new event
@@ -85,7 +85,7 @@ class RecurrenceGeneratorService @Inject constructor(
     ): List<LocalDateTime> {
         return recurrenceCalculator.calculateNextOccurrences(
             rule = rule,
-            startDate = event.targetDateTime.atZone(ZoneId.systemDefault()).toLocalDateTime(),
+            startDate = event.targetDateTime,
             count = count
         )
     }
@@ -114,7 +114,7 @@ class RecurrenceGeneratorService @Inject constructor(
             // Just update this single occurrence
             eventRepository.updateEvent(event)
             // Mark it as an exception in the recurrence rule
-            val rule = recurrenceRuleRepository.getRecurrenceRuleByEventId(event.id)
+            val rule = recurrenceRuleRepository.getRecurrenceRuleByEventId(event.id.toString())
             if (rule != null) {
                 val updatedRule = rule.copy(
                     exceptions = rule.exceptions + LocalDate.now()
