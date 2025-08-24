@@ -10,6 +10,9 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
@@ -17,9 +20,6 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import java.time.LocalDateTime
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
-import kotlin.test.assertNull
 
 @RunWith(MockitoJUnitRunner::class)
 class EventRepositoryImplTest {
@@ -80,7 +80,7 @@ class EventRepositoryImplTest {
         
         // Then
         assertNotNull(result)
-        assertEquals("Test Event", result.title)
+        assertEquals("Test Event", result!!.title)
     }
     
     @Test

@@ -2,10 +2,10 @@ package com.countjoy.domain.validation
 
 import com.countjoy.domain.model.CountdownEvent
 import org.junit.Test
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import java.time.LocalDateTime
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
 
 class EventValidatorTest {
     
